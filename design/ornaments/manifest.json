@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "created": "2026-10-29",
+  "generator": "Built-in image_gen.imagegen",
+  "transparent_background": true,
+  "style_reference": {
+    "path": "C:\\Users\\DELL\\.codex\\generated_images\\01a1864b-d4e7-7430-bd6e-faa3946dd366\\exec-a825acec-6e1c-455b-9759-bf249f0977db.png",
+    "role": "Inspected layout reference only; no pixels composited"
+  },
+  "assets": [
+    {
+      "file": "design/ornaments/rejected-throne-crest.png",
+      "source": "C:\\Users\\DELL\\.codex\\generated_images\\01a187a2-f5a7-7b43-8121-0799374dfdb3\\exec-3af305a8-ae64-4231-b5e5-1758c9aec599.png",
+      "role": "Single upper throne backrest, broad pointed arch, silver-gray stone with fine antique-gold edge trim",
+      "processing": "Byte-for-byte copy",
+      "status": "rejected by user; not served"
+    },
+    {
+      "file": "design/ornaments/superseded-pillar-divider.png",
+      "source": "C:\\Users\\DELL\\.codex\\generated_images\\01a187a2-f5a7-7b43-8121-0799374dfdb3\\exec-cb1b797d-cbac-4809-b1bf-c3889b1e5163.png",
+      "role": "One ultra slender vertical column",
+      "style_reference": "throne-crest source image",
+      "processing": "Byte-for-byte copy",
+      "limitation": "Original output has wide transparent side padding. alpha>1 content bounds are [291,11,433,2161]; a host may compensate with CSS positioning and width if displaying in an 18px strip.",
+      "status": "superseded; not served"
+    },
+    {
+      "file": "assets/ornaments/pillar-fog-slim.png",
+      "status": "active on both vertical pane boundaries",
+      "source": "C:/Users/DELL/.codex/generated_images/01a1864b-d4e7-7430-bd6e-faa3946dd366/exec-d1595af0-9b74-4e48-ab75-9080a0deae3d.png",
+      "processing": "Byte-for-byte copy",
+      "width": 812,
+      "height": 1937,
+      "mode": "RGBA",
+      "alphaBounds": [
+        343,
+        14,
+        470,
+        1922
+      ],
+      "reference": "references/tarot-club-hall-reference.jpg",
+      "referenceUrl": "https://www.pinterest.com/pin/657173770644340546/"
+    }
+  ],
+  "verification": {
+    "visual": "Both generated PNG files inspected with view_image",
+    "pixel": "Pillow mode, dimensions, bytes, alpha extrema and bounds; SHA256",
+    "files": "validation.json; prompts.md"
+  },
+  "provenance": "AI generated assets, not downloaded from a stock site. No third party author or site license asserted."
+}

@@ -1,0 +1,44 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "type": "lighting-weather color edit",
+  "commonConstraints": "Retain original painterly anime style, exact single subject, pose, face, clothing, scene objects, composition, wide aspect ratio and broad left negative space. Do not add people, background silhouettes, props, text, symbols, borders or UI. Preserve natural skin tone.",
+  "variants": [
+    {
+      "seq": 9,
+      "colorName": "深青藏蓝",
+      "editTarget": "design/scene-v2/images/09-占卜家-黄水晶灵摆.png",
+      "request": "Deep teal navy, dark petrol blue and desaturated cyan shadows, distinct from saturated royal indigo. Preserve golden yellow citrine pendulum and chain, golden candle, tarot cards and desk. Left half stays quiet dark teal navy with subtle existing fog.",
+      "output": "design/plugin-assets/sequence-9-deep-teal-navy.png"
+    },
+    {
+      "seq": 7,
+      "colorName": "烟雾橄榄灰/淡金",
+      "editTarget": "design/scene-v2/images/07-魔术师-屋顶与大雾霾.png",
+      "request": "Smoky olive gray with pale antique gold. Existing smog and shadows desaturated olive charcoal, lichen gray and sage smoke; distant lit sky and existing tiny windows pale gold, not orange. Distinct from emerald teal, royal blue, silver cyan and amber copper. Preserve exact detective on right rooftop, checked coat, hat, walking cane, rooftop, city architecture and dense existing smog.",
+      "output": "design/plugin-assets/sequence-7-smoky-olive.png"
+    },
+    {
+      "seq": 4,
+      "colorName": "石墨黑与暗橙",
+      "editTarget": "design/scene-v2/images/04-诡法师-纸人与火焰.png",
+      "request": "Graphite black and dark burnt orange. Existing left smoke and background neutral graphite charcoal without blue, green or purple. Existing fire and sparks restrained burnt orange embers, darker and less golden than amber. Preserve pale paper, transforming paper coat, doorway and stairs.",
+      "output": "design/plugin-assets/sequence-4-graphite-ember.png"
+    },
+    {
+      "seq": 0,
+      "colorName": "中性深铅银灰",
+      "editTarget": "design/scene-v2/images/00-愚者-灰雾长桌.png",
+      "request": "Neutral dark lead silver gray. Existing fog, shadows, gothic architecture and silver reflections neutral charcoal, lead, pewter and ash silver without blue, cyan, green or violet tint. Remain dark, distinct from bright porcelain silver. Preserve tiny warm candle, seated man on right ornate throne, crossed legs, hand at face, long table, arches and fog shapes.",
+      "output": "design/plugin-assets/sequence-0-lead-silver.png"
+    }
+  ],
+  "existingVariants": {
+    "8": "绯红酒幕",
+    "6": "深海靛蓝",
+    "5": "松石墨绿",
+    "3": "雾银青瓷",
+    "2": "琥珀铜金",
+    "1": "秘幕紫晶"
+  },
+  "encoding": "Pillow only for RGB conversion, WebP quality 84/method 6, original-size main images, proportional 320px-wide thumbnails. No programmatic color adjustment."
+}
