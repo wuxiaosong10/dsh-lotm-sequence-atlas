@@ -16,6 +16,11 @@ const clientSource=source('client.js')
 function fixture(saved,baseline,{ResizeObserver}={}) {
  const dom=new JSDOM('<html><head></head><body><div id="root"><aside class="mP3x-q_sidebarCol"><div><div class="host_logoRow">Brand</div><button class="host_newSession" aria-label="新建会话">+</button></div></aside><div data-tool><span class="tool_title">Title</span><span class="tool_summary">Summary</span></div></div></body></html>',{url:'https://desktop.test/',runScripts:'outside-only'});
  const w=dom.window, effects=[], events=new Set(), schemeCalls=[], images=[];
+ Object.defineProperty(w.document,'hidden',{configurable:true,value:false});
+ const media=[];
+ w.HTMLMediaElement.prototype.play=function(){media.push(['play',this]);return Promise.resolve();};
+ w.HTMLMediaElement.prototype.pause=function(){media.push(['pause',this]);};
+ w.HTMLMediaElement.prototype.load=function(){media.push(['load',this]);};
  if(ResizeObserver)w.ResizeObserver=ResizeObserver;
  if(saved)w.localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));
  if(baseline)w.localStorage.setItem(STORAGE_KEY+'/previous-theme',JSON.stringify({preference:baseline}));
@@ -38,8 +43,52 @@ function fixture(saved,baseline,{ResizeObserver}={}) {
  api.apply(ctx);
  function buttons(node,result=[]){if(!node)return result;if(Array.isArray(node)){for(const n of node)buttons(n,result);}else{if(node.type==='button')result.push(node);buttons(node.children,result);}return result;}
  function click(label){const b=buttons(Row()).find(b=>b.props['aria-label']===label);assert.ok(b,label);b.props.onClick();}
- return{w,dom,images,schemeCalls,ctx,click,buttons:()=>buttons(Row()),stop(){for(const fn of effects.reverse())fn();dom.window.close();},external(){layer={'--dsw-alias-brand-primary':{light:'#112233',dark:'#112233'}};preference='light';emit();}};
+ return{w,dom,images,media,schemeCalls,ctx,click,buttons:()=>buttons(Row()),stop(){for(const fn of effects.reverse())fn();dom.window.close();},external(){layer={'--dsw-alias-brand-primary':{light:'#112233',dark:'#112233'}};preference='light';emit();}};
 }
+
+test('sequence background uses one muted loop; readiness, switching and shutdown release old media',()=>{
+ const f=fixture({sequence:'8',readability:'clear'}),d=f.w.document;
+ const old=d.querySelector('#lotm-atlas-background video');assert.ok(old);
+ assert.equal(old.getAttribute('src'),ASSET_PREFIX+'videos/sequence-8.mp4');
+ assert.equal(old.muted,true);assert.equal(old.defaultMuted,true);assert.equal(old.loop,true);
+ assert.equal(old.autoplay,true);assert.equal(old.playsInline,true);assert.equal(old.controls,false);
+ old.dispatchEvent(new f.w.Event('playing'));
+ assert.equal(d.getElementById('lotm-atlas-background').dataset.videoReady,'true');
+ f.click('清晰内容面');assert.equal(d.querySelector('video'),old);
+ f.click('序列 9 占卜家');
+ const current=d.querySelector('video');assert.notEqual(current,old);
+ assert.equal(old.getAttribute('src'),null);assert.ok(f.media.some(([op,v])=>op==='pause'&&v===old));
+ old.dispatchEvent(new f.w.Event('playing'));
+ assert.notEqual(d.getElementById('lotm-atlas-background').dataset.videoReady,'true');
+ current.dispatchEvent(new f.w.Event('playing'));
+ f.click('关闭诡秘风格');assert.equal(d.querySelector('video'),null);
+ assert.equal(current.getAttribute('src'),null);f.stop();
+});
+test('video failure keeps the current poster; hidden windows pause and resume current media',async()=>{
+ const f=fixture({sequence:'8',readability:'clear'}),d=f.w.document;
+ const video=d.querySelector('video');assert.ok(video);
+ let hidden=true;Object.defineProperty(d,'hidden',{configurable:true,get:()=>hidden});
+ d.dispatchEvent(new f.w.Event('visibilitychange'));
+ assert.equal(f.media.at(-1)[0],'pause');
+ hidden=false;d.dispatchEvent(new f.w.Event('visibilitychange'));
+ assert.equal(f.media.at(-1)[0],'play');
+ video.dispatchEvent(new f.w.Event('error'));
+ assert.equal(d.querySelector('video'),null);
+ assert.ok(d.getElementById('lotm-atlas-theme-css').textContent.includes('sequence-8-light.webp'));
+ f.click('序列 7 魔术师');const roof=d.querySelector('video');assert.ok(roof);
+ f.w.HTMLMediaElement.prototype.play=()=>Promise.reject(new Error('autoplay blocked'));
+ hidden=false;d.dispatchEvent(new f.w.Event('visibilitychange'));await Promise.resolve();await Promise.resolve();
+ assert.equal(d.querySelector('video'),null);f.stop();
+});
+
+test('autoplay that finishes starting in a hidden window pauses before exposing the video',()=>{
+ const f=fixture({sequence:'8',readability:'clear'}),d=f.w.document,video=d.querySelector('video');
+ Object.defineProperty(d,'hidden',{configurable:true,value:true});
+ video.dispatchEvent(new f.w.Event('playing'));
+ assert.equal(f.media.at(-1)[0],'pause');
+ assert.notEqual(d.getElementById('lotm-atlas-background').dataset.videoReady,'true');
+ f.stop();assert.equal(video.getAttribute('src'),null);
+});
 
 test('native settings exposes ten named image choices; activation/close restores old preference and no old key is changed',()=>{
  const f=fixture();

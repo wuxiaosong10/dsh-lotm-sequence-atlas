@@ -33,6 +33,7 @@ window.__ModuleLoader__.load({
       const store = createSelectionStore(storage);
       let releaseTokens, active = false, applying = false, suppressRestore = false;
       let destroyed = false, desiredAsset = '', previousPreference;
+      let activeVideo, desiredVideo = '';
       const disposers = [];
       const pausedSkins = new Map();
       let measuredSidebar, measuredCenter, sidebarResize, chromeFrame;
@@ -186,6 +187,53 @@ window.__ModuleLoader__.load({
         previousPreference = typeof saved?.preference === 'string' ? saved.preference : ctx.theme.getTheme().preference;
         try { storage?.setItem(BASELINE_KEY, JSON.stringify({preference:previousPreference})); } catch {}
       }
+      function stopVideo() {
+        const video = activeVideo;
+        activeVideo = undefined; desiredVideo = '';
+        delete document.getElementById(BG_ID)?.dataset.videoReady;
+        if (!video) return;
+        video.onplaying = video.onerror = null;
+        video.pause(); video.removeAttribute('src'); video.load(); video.remove();
+      }
+      function failVideo(video) {
+        if (activeVideo !== video) return;
+        const url = desiredVideo;
+        stopVideo(); desiredVideo = url;
+        const bg = document.getElementById(BG_ID);
+        if (bg) bg.dataset.videoError = 'true';
+      }
+      function playVideo() {
+        const video = activeVideo;
+        if (!video || destroyed || document.hidden) return;
+        try {
+          video.play()?.catch(error => {
+            if (activeVideo === video && !document.hidden && error?.name !== 'AbortError') failVideo(video);
+          });
+        } catch { failVideo(video); }
+      }
+      function visibilityChanged() {
+        if (document.hidden) activeVideo?.pause(); else playVideo();
+      }
+      function syncVideo(theme,bg) {
+        const url = ASSET_PREFIX + theme.video;
+        if (desiredVideo === url) return;
+        stopVideo(); desiredVideo = url;
+        delete bg.dataset.videoError;
+        const video = document.createElement('video');
+        activeVideo = video;
+        video.muted = video.defaultMuted = true;
+        video.autoplay = video.loop = video.playsInline = true;
+        video.preload = 'auto'; video.controls = false;
+        video.setAttribute('aria-hidden','true'); video.tabIndex = -1;
+        video.poster = ASSET_PREFIX + theme.asset;
+        video.onplaying = () => {
+          if (activeVideo !== video || destroyed) return;
+          if (document.hidden) { video.pause(); return; }
+          bg.dataset.videoReady = 'true';
+        };
+        video.onerror = () => failVideo(video);
+        video.src = url; bg.appendChild(video); playVideo();
+      }
       function disable(restore = true) {
         applying = true;
         try {
@@ -194,6 +242,7 @@ window.__ModuleLoader__.load({
           removeStats();
           releaseTokens?.(); releaseTokens = undefined;
           document.getElementById(THEME_STYLE)?.remove();
+          stopVideo();
           document.getElementById(BG_ID)?.remove();
           delete document.documentElement.dataset.lotmAtlas;
           if (active && restore && previousPreference !== undefined) {
@@ -219,6 +268,7 @@ window.__ModuleLoader__.load({
           document.documentElement.dataset.lotmAtlas = theme.id;
           let bg = document.getElementById(BG_ID);
           if (!bg) { bg = document.createElement('div'); bg.id = BG_ID; bg.setAttribute('aria-hidden','true'); document.body.appendChild(bg); }
+          syncVideo(theme,bg);
           // Keep the last successfully loaded artwork during fast switches; a missing
           // asset still leaves a readable theme-colored background.
           const current = bg.dataset.asset || '';
@@ -303,12 +353,14 @@ window.__ModuleLoader__.load({
         });
         chromeObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-sidebar-collapsed']});
         window.addEventListener('resize',scheduleLayout);
+        document.addEventListener('visibilitychange',visibilityChanged);
         renderTheme(store.state());
         return () => {
           destroyed = true;
           skinObserver.disconnect();
           chromeObserver.disconnect();
           window.removeEventListener('resize',scheduleLayout);
+          document.removeEventListener('visibilitychange',visibilityChanged);
           document.removeEventListener('click',externalPaletteClick,true);
           for(const dispose of disposers.reverse()) dispose?.();
           disable(true);

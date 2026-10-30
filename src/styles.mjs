@@ -78,6 +78,11 @@ function themeFinishCss(t,assetUrl,readability) {
  return `
 ${s} body{--dsw-font-family:${t.uiFont};--lotm-code-keyword:${t.codeKeyword};--lotm-code-string:${t.codeString};--lotm-code-function:${t.codeFunction};--lotm-code-number:${t.codeNumber};--lotm-code-comment:${t.codeComment};--shiki-foreground:${t.codeText};--shiki-background:${t.codeBg};--shiki-token-constant:${t.codeNumber};--shiki-token-string:${t.codeString};--shiki-token-string-expression:${t.codeString};--shiki-token-comment:${t.codeComment};--shiki-token-keyword:${t.codeKeyword};--shiki-token-parameter:${t.codeFunction};--shiki-token-function:${t.codeFunction};--shiki-token-punctuation:${t.codeText};--shiki-token-link:${t.codeFunction};font-family:${t.uiFont}!important}
 ${s} #lotm-atlas-background{--lotm-art-offset:${t.id==='8'?'calc(-1 * clamp(110px,10vw,180px))':'clamp(72px,9vw,160px)'};--lotm-art-width:max(calc(100vw + max(0px,var(--lotm-art-offset)) * 2),calc(100vh * 1.78));--lotm-art-position:calc(50% - var(--lotm-art-offset)) center;background-image:${backgroundLayers.join(',')};background-size:${backgroundSizes};background-position:${backgroundPositions}}
+${s} #lotm-atlas-background{overflow:hidden}
+${s} #lotm-atlas-background > video{position:absolute;z-index:0;left:calc(50% - var(--lotm-art-offset));top:50%;width:var(--lotm-art-width);height:auto;max-width:none;max-height:none;transform:translate(-50%,-50%);pointer-events:none;opacity:0}
+${s} #lotm-atlas-background[data-video-ready=true] > video{opacity:1}
+${s} #lotm-atlas-background::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background-image:${backgroundLayers.slice(0,-1).join(',')};background-size:cover;background-position:center}
+${s} #lotm-atlas-background[data-video-ready=true]::after{opacity:1}
 ${s} [class*="sidebarCol"]{position:relative;background:${alpha(t.chromeBg,.94)}!important;border-right:0!important;box-shadow:inset 0 1px 0 ${highlight}!important}
 ${s} [class*="rightbarCol"]{border-left:0!important}
 ${s} [class*="sidebarCol"] > div{background:transparent!important;background-image:none!important;padding:5px 8px 8px!important;gap:5px!important;font-size:12px!important}
@@ -159,7 +164,7 @@ ${s} button:focus-visible,${s} [role="treeitem"]:focus-visible{outline:2px solid
 ${s} ::-webkit-scrollbar{width:8px;height:8px}
 ${s} ::-webkit-scrollbar-thumb{background:${alpha(t.accent,.3)};border-radius:8px;border:2px solid transparent;background-clip:padding-box}
 @media(max-width:1100px){${s} #lotm-atlas-background{--lotm-art-offset:${t.id==='8'?'-110px':'64px'}}}
-@media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){display:none}}
+@media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} #lotm-atlas-background > video{inset:0;width:100%;height:100%;object-fit:cover;transform:none}${s} #lotm-atlas-background::after{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)})}${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){display:none}}
 @media(prefers-reduced-motion:reduce){${s} *,${s} *:before,${s} *:after{transition:none!important;animation:none!important}}
 `;
 }

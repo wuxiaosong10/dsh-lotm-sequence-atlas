@@ -15,10 +15,40 @@ test('all packaged active and retained images can be served as actual WebP files
 });
 test('only known exact asset paths are registered; no traversal handler',()=>{
  const routes=createAssetRoutes({read:()=>Buffer.from('webp')});
- assert.equal(routes.length,23);
+ assert.equal(routes.length,33);
  assert.ok(routes.every(r=>r.kind==='exact'));
  assert.equal(routes.filter(r=>r.path.includes('../')).length,0);
- assert.equal(new Set(routes.map(r=>r.path)).size,23);
+ assert.equal(new Set(routes.map(r=>r.path)).size,33);
+});
+
+const response=()=>({writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}});
+test('all ten sequence videos are served as MP4, with HEAD and browser byte ranges',()=>{
+ const routes=createAssetRoutes().filter(r=>r.path.endsWith('.mp4'));
+ assert.equal(routes.length,10);
+ for(const route of routes){
+  const full=response();route.handler({method:'GET'},full);
+  assert.equal(full.status,200);assert.equal(full.headers['content-type'],'video/mp4');
+  assert.equal(full.headers['accept-ranges'],'bytes');
+  assert.equal(full.body.toString('ascii',4,8),'ftyp');
+  const part=response();route.handler({method:'GET',headers:{range:'bytes=0-31'}},part);
+  assert.equal(part.status,206);assert.equal(part.headers['content-range'],`bytes 0-31/${full.body.length}`);
+  assert.equal(part.headers['content-length'],32);assert.deepEqual(part.body,full.body.subarray(0,32));
+  const head=response();route.handler({method:'HEAD'},head);
+  assert.equal(head.status,200);assert.equal(head.body,undefined);
+  assert.equal(head.headers['content-length'],full.body.length);
+ }
+});
+test('video ranges handle suffix, open end and unsatisfiable requests',()=>{
+ const route=createAssetRoutes({read:()=>Buffer.from('0123456789')}).find(r=>r.path.endsWith('.mp4'));
+ assert.ok(route);
+ for(const [range,expected]of [['bytes=7-','789'],['bytes=-3','789'],['bytes=8-99','89']]){
+  const res=response();route.handler({method:'GET',headers:{range}},res);
+  assert.equal(res.status,206);assert.equal(res.body.toString(),expected);
+ }
+ for(const range of ['bytes=10-','bytes=6-2','bytes=-0','bytes=-','bytes=0-1,4-5','bytes=999999999999999999999-']){
+  const res=response();route.handler({method:'GET',headers:{range}},res);
+  assert.equal(res.status,416,range);assert.equal(res.headers['content-range'],'bytes */10');
+ }
 });
 test('only the retained column PNG is served; rejected throne is not exposed',()=>{
  const routes=createAssetRoutes().filter(r=>r.path.endsWith('.png'));

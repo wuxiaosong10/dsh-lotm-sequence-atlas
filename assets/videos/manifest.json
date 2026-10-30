@@ -11,7 +11,7 @@
   "processing": "Stream-copy H.264 video, remove audio/subtitles/data, move MP4 metadata to front. No frame interpolation, crossfades, reversal, timing changes or new scenes.",
   "estimated_cost_cny": 40.0,
   "billing_note": "按官方2K输出每秒0.80元估算；每任务2张图片在前5张免费范围。未读取账户账单。",
-  "integration_status": "Assets generated only; DSH client still uses the existing static backgrounds.",
+  "integration_status": "Integrated into DSH lotm plugin: per-sequence muted loop, still-image fallback, media cleanup and background pause. All ten installed HTTP video routes verified; final native desktop visual acceptance interrupted by user Escape.",
   "items": [
     {
       "sequence": 9,
