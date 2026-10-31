@@ -47,3 +47,19 @@ test('collapsed sidebar keeps its native toggle and does not gain a full brand l
  assert.equal(d.querySelector('.lotm-brand-label'),null);assert.equal(d.querySelector('button'),toggle);
  skin.dispose();dom.window.close();
 });
+
+test('four-corner sidebar frame mounts once and is fully removed on close',()=>{
+ const f=setup(),{d,skin}=f;skin.setEnabled(true);skin.setEnabled(true);
+ const frames=d.querySelectorAll('.lotm-sidebar-frame');assert.equal(frames.length,1);
+ assert.equal(frames[0].getAttribute('aria-hidden'),'true');
+ assert.deepEqual([...frames[0].children].map(n=>n.dataset.corner),['tl','tr','bl','br']);
+ skin.setEnabled(false);assert.equal(d.querySelector('.lotm-sidebar-frame'),null);f.stop();
+});
+
+test('decorative wordmark retains real text and falls back when its image cannot load',()=>{
+ const f=setup(),{d,skin}=f;skin.setEnabled(true);const label=d.querySelector('.lotm-brand-label'),image=label.querySelector('img');
+ assert.ok(image);assert.equal(label.textContent,'诡秘之主');assert.equal(label.dataset.lotmWordmark,undefined);
+ image.dispatchEvent(new f.dom.window.Event('load'));assert.equal(label.dataset.lotmWordmark,'ready');
+ image.dispatchEvent(new f.dom.window.Event('error'));assert.equal(label.dataset.lotmWordmark,undefined);
+ skin.setEnabled(false);image.dispatchEvent(new f.dom.window.Event('load'));assert.equal(d.querySelector('.lotm-brand-label'),null);f.stop();
+});

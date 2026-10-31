@@ -33,6 +33,42 @@
       ],
       "sha256": "f509ba007a070064d583380629cdfc4c030415e03e664ad9abdfb02bb8829efd",
       "rendering": "CSS alpha mask, recolored by active sequence"
+    },
+    {
+      "file": "lotm-wordmark.png",
+      "generator": "OpenAI Image tool",
+      "original_output_name": "exec-a381a759-1d6d-47de-8d1a-c2ec56f585a3.png",
+      "role": "sidebar original Chinese display lettering",
+      "visual_reference": "design/ui-refinement-20261030/selected-deep-mist-brass.png",
+      "width": 2076,
+      "height": 757,
+      "transparent": true,
+      "sha256": "5d57af6d39a537f911dd5cdcb4b3d0a4b7f11db6290fc085c33aa1ee18b09e54",
+      "processing": "Copied unedited; displayed through a theme-colored CSS alpha mask"
+    },
+    {
+      "file": "occult-frame-corner.png",
+      "generator": "OpenAI Image tool",
+      "original_output_name": "exec-44022ccd-f91a-430d-aa06-8c0bbe4e9886.png",
+      "role": "four reflected sidebar frame corners",
+      "visual_reference": "design/ui-refinement-20261030/selected-deep-mist-brass.png",
+      "width": 1254,
+      "height": 1254,
+      "transparent": true,
+      "sha256": "c5247d9e822da758d53ecb2c9777d901effa216c055dd96f538da11413e2190a",
+      "processing": "Copied unedited; displayed through a theme-colored CSS alpha mask"
+    },
+    {
+      "file": "occult-divider.png",
+      "generator": "OpenAI Image tool",
+      "original_output_name": "exec-a7bf335d-a1ea-4e35-8350-19a911e2f83c.png",
+      "role": "divider between navigation, workspace and footer",
+      "visual_reference": "design/ui-refinement-20261030/selected-deep-mist-brass.png",
+      "width": 2172,
+      "height": 724,
+      "transparent": true,
+      "sha256": "08f52f87ac27f9fb58ad99d6bd7b90c25f5bff7badd29dd125f3e5384cb5360d",
+      "processing": "Copied unedited; displayed through a theme-colored CSS alpha mask"
     }
   ]
 }

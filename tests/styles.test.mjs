@@ -30,3 +30,24 @@ test('Gradually-shaped new-session control keeps its icon and label visible',()=
  assert.ok(Number.parseFloat(getComputedStyle(icon).fontSize)>=14);
  dom.window.close();
 });
+
+test('hero composer keeps the native intrinsic height instead of adding an empty strip below its toolbar',()=>{
+ const dom=new JSDOM('<html data-lotm-atlas="8"><head></head><body><div class="an3WzG_root" data-phase="hero"><div class="GRgSLq_card" data-composer-card><div contenteditable="true"></div><div class="native_toolbar"><button>发送</button></div></div></div></body></html>');
+ const {document,getComputedStyle}=dom.window,card=document.querySelector('[data-composer-card]');
+ const host=document.createElement('style');host.textContent='.GRgSLq_card{display:flex;flex-direction:column;gap:12px;padding-top:8px}';document.head.append(host);
+ const nativeMinHeight=getComputedStyle(card).minHeight;
+ const own=document.createElement('style');own.textContent=themeCss(THEMES[1],'/scene.webp');document.head.append(own);
+ assert.equal(getComputedStyle(card).minHeight,nativeMinHeight);
+ dom.window.close();
+});
+
+test('Windows central panes keep the scene visible for both div and main containers',()=>{
+ for(const tag of ['div','main']){
+  const dom=new JSDOM(`<html data-lotm-atlas="5" data-windows-titlebar><head></head><body><div id="root"><div class="mP3x-q_frame"><${tag} class="mP3x-q_centerCol"></${tag}></div></div></body></html>`);
+  const {document,getComputedStyle}=dom.window;
+  const host=document.createElement('style');host.textContent='[data-windows-titlebar] .mP3x-q_centerCol{background:rgb(16,35,31)}';document.head.append(host);
+  const own=document.createElement('style');own.textContent=themeCss(THEMES.find(t=>t.id==='5'),'/scene.webp');document.head.append(own);
+  assert.equal(getComputedStyle(document.querySelector('.mP3x-q_centerCol')).backgroundColor,'rgba(0, 0, 0, 0)',tag);
+  dom.window.close();
+ }
+});

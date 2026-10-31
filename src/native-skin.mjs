@@ -43,6 +43,17 @@ export function createNativeSkin(document) {
     for (const node of texts.keys()) if (!node.isConnected) texts.delete(node);
     for (const node of attributes.keys()) if (!node.isConnected) attributes.delete(node);
     for (const node of owned) if (!node.isConnected) owned.delete(node);
+    for (const column of document.querySelectorAll(sidebar)) {
+      if (!column.querySelector(':scope > .lotm-sidebar-frame')) {
+        const frame=document.createElement('span');
+        frame.className='lotm-sidebar-frame';frame.setAttribute('aria-hidden','true');
+        for (const corner of ['tl','tr','bl','br']) {
+          const ornament=document.createElement('span');
+          ornament.className='lotm-frame-corner';ornament.dataset.corner=corner;frame.append(ornament);
+        }
+        column.append(frame);owned.add(frame);
+      }
+    }
     for (const element of document.querySelectorAll(chrome)) {
       changeTexts(element,names);
       for (const node of [element,...element.querySelectorAll('[aria-label],[title]')]) {
@@ -72,7 +83,13 @@ export function createNativeSkin(document) {
         const mark=document.createElement('span'),label=document.createElement('span');
         mark.className='lotm-brand-mark';mark.setAttribute('aria-hidden','true');
         label.className='lotm-brand-label';label.textContent='诡秘之主';
+        // Keep real text as the fallback until the decorative asset has loaded.
+        const preview=document.createElement('img');preview.hidden=true;preview.alt='';
+        preview.onload=()=>{if(enabled && label.isConnected)label.dataset.lotmWordmark='ready';};
+        preview.onerror=()=>{delete label.dataset.lotmWordmark;};
+        label.append(preview);owned.add(preview);
         identity.append(mark,label);owned.add(mark);owned.add(label);
+        preview.src='/api/lotm-sequence-atlas/assets/ornaments/lotm-wordmark.png';
       }
     }
   };
@@ -99,7 +116,10 @@ export function createNativeSkin(document) {
     for (const [node,saved] of attributes) for (const [key,{before,after}] of saved) if (node.getAttribute(key)===after) {
       if (before===null) node.removeAttribute(key);else node.setAttribute(key,before);
     }
-    for (const node of owned) node.remove();
+    for (const node of owned) {
+      if (node.tagName==='IMG') node.onload=node.onerror=null;
+      node.remove();
+    }
     texts.clear();attributes.clear();owned.clear();
   }
   return {setEnabled,dispose:()=>setEnabled(false)};

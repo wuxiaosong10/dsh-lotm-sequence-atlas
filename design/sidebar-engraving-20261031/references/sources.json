@@ -1,0 +1,16 @@
+{
+  "theme_reference": {
+    "page": "https://video.friday.tw/anime/detail/4199",
+    "image": "https://vbmspic.video.friday.tw/GROUP/4199/4199_34666.jpg",
+    "role": "Gothic pointed lettering and celestial architecture inspiration only",
+    "copyright": "Tencent / MUSE, as printed on the source poster",
+    "runtime_use": false
+  },
+  "user_references": [
+    "sidebar-before-ornaments.png",
+    "wordmark-before.png",
+    "frame-before-top-fix.png",
+    "composer-before-height-fix.png"
+  ],
+  "lettering": "Original generated simplified Chinese wordmark, not the official logo"
+}

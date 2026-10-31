@@ -15,10 +15,10 @@ test('all packaged active and retained images can be served as actual WebP files
 });
 test('only known exact asset paths are registered; no traversal handler',()=>{
  const routes=createAssetRoutes({read:()=>Buffer.from('webp')});
- assert.equal(routes.length,53);
+ assert.equal(routes.length,56);
  assert.ok(routes.every(r=>r.kind==='exact'));
  assert.equal(routes.filter(r=>r.path.includes('../')).length,0);
- assert.equal(new Set(routes.map(r=>r.path)).size,53);
+ assert.equal(new Set(routes.map(r=>r.path)).size,56);
 });
 
 const response=()=>({writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}});
@@ -52,7 +52,7 @@ test('video ranges handle suffix, open end and unsatisfiable requests',()=>{
 });
 test('retained column and generated occult PNGs are served; rejected throne is not exposed',()=>{
  const routes=createAssetRoutes().filter(r=>r.path.endsWith('.png'));
- assert.deepEqual(routes.map(r=>r.path.split('/').at(-1)),['pillar-fog-slim.png','occult-eye.png','occult-corner.png']);
+ assert.deepEqual(routes.map(r=>r.path.split('/').at(-1)),['pillar-fog-slim.png','occult-eye.png','occult-corner.png','lotm-wordmark.png','occult-frame-corner.png','occult-divider.png']);
  for(const route of routes){
   const res={writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}};
   route.handler({method:'GET'},res);
