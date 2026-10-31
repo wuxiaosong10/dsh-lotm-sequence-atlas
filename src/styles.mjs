@@ -1,4 +1,4 @@
-import { alpha } from './core.mjs';
+import { alpha, hexRgb } from './core.mjs';
 const ICON_NAMES=['cards','cube','masks-theater','script','stairs-up','eye','eye-off','moon-stars','pentagram','send','paperclip','settings','plus','x','minus','chevron-down','search','layout-sidebar'];
 const ICON_CSS=ICON_NAMES.map(name=>`[data-lotm-glyph="${name}"],[data-lotm-icon="${name}"]{--lotm-icon:url('/api/lotm-sequence-atlas/assets/icons/tabler/original/${name}.svg')}`).join('\n');
 export const SETTINGS_CSS = `
@@ -54,6 +54,44 @@ ${scope} ::selection{background:${t.accent};color:${t.onAccent}}
 @media(max-width:900px){${scope} #lotm-atlas-background{background-image:linear-gradient(${wash},${wash}),url(${JSON.stringify(assetUrl)})}}
 ${themeFinishCss(t,assetUrl,readability)}
 ${occultFinishCss(t)}
+${readingFinishCss(t,readability)}
+`;
+}
+
+function readingFinishCss(t,readability){
+ const s='html[data-lotm-atlas]';
+ const blend=(a,b,weight)=>{
+  const second=hexRgb(b);
+  return '#'+hexRgb(a).map((value,index)=>Math.round(value*(1-weight)+second[index]*weight).toString(16).padStart(2,'0')).join('');
+ };
+ const secondary=blend(t.muted,t.text,.28);
+ const command=blend(t.text,t.aux||t.accent,.12);
+ const surface=alpha(t.panel,readability==='clear'?.80:.62);
+ const edge=alpha(t.ornament||t.accent,t.dark?.20:.18);
+ const glint=t.dark?'rgba(255,255,255,.045)':'rgba(255,255,255,.52)';
+ const process=`${s} [data-step-process][data-group-expanded-mode],${s} [data-step-process]:has(>div>.BE0jCW_title[aria-expanded="true"])`;
+ return `
+${process},${s} .xMeOpW_body{box-sizing:border-box;min-width:0;background:${surface}!important;border:1px solid ${edge}!important;border-radius:13px!important;padding:12px 16px!important;box-shadow:inset 0 1px 0 ${glint}!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:${t.text}!important}
+${s} [data-step-process] .xMeOpW_body{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;backdrop-filter:none;-webkit-backdrop-filter:none}
+${s} .xMeOpW_body > :is(p,ul,ol,table),${s} .xMeOpW_body [class*="_markdown_"] > :is(p,ul,ol,table){background:transparent!important;border-radius:0!important}
+${s} .xMeOpW_body > p{width:auto!important;margin:0!important}
+${s} .xMeOpW_body > :first-child{margin-top:0!important}
+${s} .xMeOpW_body > :last-child{margin-bottom:0!important}
+${s} [data-step-process] [data-disclosure-header],${s} [data-tool] [data-disclosure-header]{font-family:${t.uiFont}!important;font-size:max(14px,var(--dsh-content-font-size,14px))!important;font-weight:500!important;letter-spacing:.005em;color:${t.text}!important}
+${s} .VJlF5q_title,${s} .EqXNNG_title,${s} [data-tool] [class*="title"]{font-weight:500!important;color:${t.text}!important}
+${s} .VJlF5q_summary{font-family:${t.uiFont}!important;font-size:max(13px,var(--dsh-content-font-size-secondary,13px))!important;font-weight:400!important;line-height:inherit!important;letter-spacing:.005em;color:${secondary}!important}
+${s} .EqXNNG_summary,${s} [data-tool] [class*="summary"]{font-family:${t.codeFont}!important;font-size:max(12.5px,var(--dsh-content-font-size-secondary,13px))!important;font-weight:400!important;line-height:inherit!important;letter-spacing:0;color:${command}!important}
+${s} .VJlF5q_summary *,${s} .EqXNNG_summary *,${s} [data-tool] [class*="summary"] *{font-weight:inherit!important;color:inherit!important}
+${s} [data-tool="computer"] [class*="summary"]{font-family:${t.uiFont}!important;color:${secondary}!important}
+${s} .VJlF5q_leading,${s} .EqXNNG_leading,${s} [data-step-process] .BE0jCW_leading{color:${t.ornament||t.accent}!important}
+${s} .BE0jCW_title{font:500 max(13px,var(--dsh-content-font-size-secondary,13px))/1.7 ${t.uiFont}!important;color:${secondary}!important}
+${s} .hE4tRW_root{width:fit-content!important;max-width:100%;height:auto!important;min-height:28px;padding:2px 8px!important;margin-block:4px 8px;border:0!important;border-radius:6px!important;background:${surface}!important;color:${secondary}!important;font:500 max(12px,var(--dsh-content-font-size-secondary,13px))/1.65 ${t.uiFont}!important}
+${s} .hE4tRW_root:disabled,${s} [data-disclosure-header]:disabled{opacity:1!important}
+${s} .hE4tRW_durationNumber{font-family:${t.codeFont}!important;font-variant-numeric:tabular-nums}
+${s} ._1KfHza_endInfo,${s} ._1KfHza_timeStart{color:${secondary}!important}
+${s} :is(._1KfHza_timeStart,._1KfHza_timeEnd){font:400 max(11.5px,calc(var(--dsh-content-font-size-secondary,13px) - 1px))/1.7 ${t.uiFont}!important;font-variant-numeric:tabular-nums;background:${alpha(t.panel,.72)};border-radius:5px;padding:1px 5px}
+${s} .EqXNNG_summary[data-error],${s} [data-tool][data-state="error"] [class*="summary"],${s} [data-tool][data-state="error"] [data-disclosure-header]{color:${t.danger}!important}
+@media(max-width:820px){${process},${s} .xMeOpW_body{padding:10px 12px!important;border-radius:10px!important}${s} [data-step-process] .xMeOpW_body{padding:0!important}}
 `;
 }
 

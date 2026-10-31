@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {THEMES} from '../src/catalog.mjs';
 import {themeCss} from '../src/styles.mjs';
+import {contrastRatio} from '../src/core.mjs';
 
 test('resident DSH conversation root cannot hide artwork behind its opaque base fill',()=>{
  const dom=new JSDOM('<html data-lotm-atlas="7"><head></head><body><div id="root"><div class="mP3x-q_frame"><div class="mP3x-q_centerCol"><div data-slot="main"><div><div class="an3WzG_root"><div data-conversation-region="chat"><pre>output</pre></div></div></div></div></div></div></div><div id="lotm-atlas-background"></div></body></html>');
@@ -50,4 +51,43 @@ test('Windows central panes keep the scene visible for both div and main contain
   assert.equal(getComputedStyle(document.querySelector('.mP3x-q_centerCol')).backgroundColor,'rgba(0, 0, 0, 0)',tag);
   dom.window.close();
  }
+});
+
+function processStyleFixture(theme){
+ const dom=new JSDOM(`<html data-lotm-atlas="${theme.id}"><head></head><body><button class="hE4tRW_root" data-turn-process disabled>已完成</button><div class="BE0jCW_root" data-step-process data-group-expanded-mode><div class="VJlF5q_root" data-variant="think"><button data-disclosure-header><span class="VJlF5q_title">思考</span><span class="VJlF5q_summary">A long reasoning preview</span></button></div><div data-tool="command"><span class="EqXNNG_summary">inspect assets/manifest.json</span></div><div data-tool="command" data-state="error"><span class="EqXNNG_summary" data-error>失败</span></div></div><div class="xMeOpW_body"><p>旧档案中的线索</p></div><button id="send" disabled>发送</button></body></html>`);
+ const d=dom.window.document,host=d.createElement('style');host.textContent=`[data-disclosure-header]{font-weight:600}.EqXNNG_summary[data-error]{color:${theme.danger}}`;d.head.append(host);
+ const own=d.createElement('style');own.textContent=themeCss(theme,'/scene.webp');d.head.append(own);
+ return dom;
+}
+const rgbaChannels=css=>(css.match(/[\d.]+/g)||[]).map(Number);
+const rgbHex=values=>'#'+values.slice(0,3).map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+
+test('process and prose use translucent reading surfaces with enough contrast over either a bright or dark scene',()=>{
+ for(const theme of THEMES){
+  const dom=processStyleFixture(theme),{document,getComputedStyle}=dom.window;
+  for(const [surfaceSelector,inkSelectors]of [
+   ['[data-step-process]',['.VJlF5q_summary','[data-tool]:not([data-state="error"]) .EqXNNG_summary']],
+   ['.xMeOpW_body',['.xMeOpW_body']],
+  ]){
+   const surface=rgbaChannels(getComputedStyle(document.querySelector(surfaceSelector)).backgroundColor),opacity=surface[3]??1;
+   assert.ok(opacity>0&&opacity<1,`${theme.name} ${surfaceSelector} stays translucent`);
+   for(const backdrop of [0,255])for(const selector of inkSelectors){
+    const background=rgbHex(surface.map(v=>v*opacity+backdrop*(1-opacity)));
+    const ink=rgbHex(rgbaChannels(getComputedStyle(document.querySelector(selector)).color));
+    assert.ok(contrastRatio(ink,background)>=4.5,`${theme.name} ${selector} on ${backdrop}`);
+   }
+  }
+  dom.window.close();
+ }
+});
+
+test('read-only progress labels remain visible while disabled actions and error states keep their semantics',()=>{
+ const theme=THEMES.find(t=>t.id==='2'),dom=processStyleFixture(theme),{document,getComputedStyle}=dom.window;
+ const progress=document.querySelector('[data-turn-process]');
+ assert.equal(progress.disabled,true);assert.equal(getComputedStyle(progress).opacity,'1');
+ assert.equal(getComputedStyle(document.querySelector('#send')).opacity,'0.45');
+ assert.equal(rgbHex(rgbaChannels(getComputedStyle(document.querySelector('[data-error]')).color)),theme.danger.toLowerCase());
+ assert.ok(Number(getComputedStyle(document.querySelector('.VJlF5q_summary')).fontWeight)<600);
+ assert.equal(document.querySelector('.VJlF5q_summary').textContent,'A long reasoning preview');
+ dom.window.close();
 });

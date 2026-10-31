@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
-import {STORAGE_KEY} from '../src/core.mjs';
+import {STORAGE_KEY,contrastRatio} from '../src/core.mjs';
 import {THEMES,ASSET_PREFIX} from '../src/catalog.mjs';
 
 // Exercise the current source without requiring a generated bundle first.
@@ -165,7 +165,10 @@ test('existing Gradually explicit tool text colors cannot leak into the new dark
  legacy.textContent='div[data-tool] [class*="title"]{color:#252E3D!important}div[data-tool] [class*="summary"]{color:#5E6B7F!important}';f.w.document.head.append(legacy);
  f.click('序列 9 占卜家');
  assert.equal(f.w.getComputedStyle(f.w.document.querySelector('.tool_title')).color,'rgb(240, 244, 246)');
- assert.equal(f.w.getComputedStyle(f.w.document.querySelector('.tool_summary')).color,'rgb(185, 202, 209)');
+ const summary=f.w.getComputedStyle(f.w.document.querySelector('.tool_summary')).color;
+ assert.notEqual(summary,'rgb(94, 107, 127)');
+ const ink='#'+summary.match(/\d+/g).slice(0,3).map(value=>Number(value).toString(16).padStart(2,'0')).join('');
+ assert.ok(contrastRatio(ink,THEMES.find(t=>t.id==='9').panel)>=4.5);
  f.stop();
 });
 
