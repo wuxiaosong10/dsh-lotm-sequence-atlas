@@ -10,8 +10,8 @@
   "actual_resolution": "2560x1440",
   "processing": "Stream-copy H.264 video, remove audio/subtitles/data, move MP4 metadata to front. No frame interpolation, crossfades, reversal, timing changes or new scenes.",
   "estimated_cost_cny": 40,
-  "billing_note": "Active ten clips estimated at CNY 40 in total at 2K CNY 0.80/second. This update generated two new five-second clips (estimated CNY 8), reusing the previously generated Daly clip. Account bill not inspected.",
-  "integration_status": "1.2.0: sequence 3/4/5 replaced; compact occult UI implemented. 50 tests, build and syntax checks passed. Browser fixture verified ten palettes, centering, narrow layout, sequence 5 loop and sequence 4 held tail. Native desktop full-flow acceptance not completed.",
+  "billing_note": "Active ten clips estimated at CNY 40 at 2K CNY 0.80/second. Earlier scenes 3/4/5 update generated two clips (CNY 8 estimated) and reused Daly. Current sequence 0 update generated one five-second clip (CNY 4 estimated). Historical replaced jobs are not included in the active-clip total. Account bill not inspected.",
+  "integration_status": "Sequence 0 updated with user-selected apotheosis scene; browser validation recorded per release.",
   "items": [
     {
       "sequence": 9,
@@ -442,9 +442,9 @@
       "sequence": 0,
       "name": "愚者",
       "file": "assets/videos/sequence-0.mp4",
-      "input": "assets/sequence-0.webp",
-      "input_sha256": "dc1cb09782564ec2e03748ec2c101f34d8607aab6750fb605c42a522d381104b",
-      "task_id": "457895015723221",
+      "input": "design/fool-apotheosis-20261031/神诞-普通面容.png",
+      "input_sha256": "7654635286c1bb3957489a233c9c0caf6d5e6367a11cb6821d217ecb6d58b6c8",
+      "task_id": "458250069324358",
       "requested_duration_seconds": 5,
       "actual_duration_seconds": 5.17,
       "width": 2560,
@@ -453,8 +453,8 @@
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
-      "file_bytes": 774465,
-      "sha256": "8fb7782f06a789eb31942c48950cb6fcc91abf999445821de400e254d5ff2ae6",
+      "file_bytes": 2524897,
+      "sha256": "2adb01fba27306081f0a43254e53de66e68c6006b170862453fdef2a71308988",
       "api_usage": {
         "total_seconds": 5,
         "input_seconds": 0,
@@ -464,20 +464,79 @@
         "prompt_tokens": 26040,
         "completion_tokens": 260390
       },
-      "raw_file": "output/minimax-20261030/raw/sequence-0.mp4",
-      "raw_sha256": "3bf4a792d3bc1c7aff09f99d81dcaefe34ae2a56ee39cdc899a9445597abb42a",
-      "loop_qa": {
-        "seam_mean_absolute_difference_8bit": 0.657,
-        "adjacent_mean_absolute_difference_8bit": 0.0869,
-        "adjacent_max_absolute_difference_8bit": 0.2137,
-        "seam_vs_average_adjacent_ratio": 7.563
-      },
-      "prompt": "Animate only the supplied illustration into a quiet five-second looping desktop wallpaper. Both supplied images are the SAME image: start and finish on exactly this composition and open-eye pose. Preserve the source face, illustration style, colors, silhouette, object positions, clothing, framing and every architectural line. Locked-off tripod camera for the entire clip. Absolutely no camera movement, zoom, pan, orbit, dolly, reframing, cuts or scene transitions. This is a subtle living painting, never an action sequence. Character head, torso, arms, hands and legs stay in the original pose. Allow only the specifically listed tiny ambient details. Keep all movement very small, slow and soft, with smooth cyclic easing and no abrupt acceleration. Settled opening and ending. Maintain identical exposure and color, no brightness pumping or flicker. Calm unobtrusive left-side negative space. No new characters, props, text, logos or borders. Silent: no dialogue, music or effects. SCENE: the reserved dark-haired man seated at the right end of the long ancient table in the monochrome silver-gray hall above the fog. Keep the exact seated pose, face, eyes, hair, hands and crossed legs still. Only the existing lower gray fog flows extremely slowly around the table and columns, and a few tiny candle flames softly flicker in place with stable scene exposure. The very edge of the sleeve can barely breathe. Preserve every chair, table edge, column, candle and reflection. No gesturing, moving fingers, nodding, turning, rising, levitation, glowing eyes, new people, dramatic divine effects or camera movement.",
+      "raw_file": "output/minimax-fool-apotheosis-20261031/fool-apotheosis-raw.mp4",
+      "raw_sha256": "0a27826707925f01a3c1facbcdab8a1632bdccd1beaea393ec558e1aa2f33650",
+      "prompt": "把参考图做成适合软件背景的5秒循环微动画，固定机位、固定焦距、固定构图。首尾是同一张图，请保持一致，衔接自然。保持右侧单个人物，左侧大片灰黑雾面留白，保留原图绘画质感、银灰黑和少量旧金配色。\n\n这是克莱恩成为“愚者”的瞬间：人形已经不再是实体，深色斗篷里面空无一物。人物原地悬浮，身位、朝向、头部和面容始终稳定。克莱恩是普通长相的瘦削青年，有朴素书卷气与倦意，不是精致俊美男模。严格沿用输入图的普通五官，不美颜、不变年轻、不换脸。表情沉静坚韧，遥远而有神性，嘴唇闭合。旁边半透明面具是同一面孔的成形残影，不是第二个人，不要新生出另一颗头。\n\n只做克制而清楚的局部微动：下方灰雾非常缓慢地在原区域内起伏，斗篷外缘和薄纱一样的衣料轻轻漂浮，细银丝有极微弱流光；面具边缘少量雾丝缓慢凝聚又散开，面孔主体不变；空无斗篷内一缕薄雾徐徐穿过，表现非人状态。右上方冷银光只做很小幅度的呼吸，不闪烁，不爆发。不能整张图平移或缩放来冒充动作。\n\n运动缓慢、幅度小，开头与末尾都处于同样的安静状态；最后一秒自然回到起始的衣缘位置、雾气层次和光照，不要突然刹停，不要叠化出双重人物，不要淡入淡出或黑场。无转头、抬手、走路、眨眼、张嘴、攻击、动作表演。无镜头推进、拉远、摇移、旋转、切镜或景别变化。左侧不能出现新的物体、明亮粒子或图案；不要新增眼睛、怪物、触手群、卡牌、钟表、翅膀、王冠、文字、水印、UI或logo。无说话、无音乐。",
       "same_input_image_for_first_and_last_frame": true,
-      "video_stream_sha256": "47fc1b9164f399fdc0056f3794a4851546ebde9c334849b5ae60ce43b7657069"
+      "scene": "克莱恩成神·空无斗篷与面容成形",
+      "playback": "loop",
+      "qa": {
+        "metadata": {
+          "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+          "codec": "h264",
+          "pix_fmt": "yuv420p(progressive)",
+          "fps": 24,
+          "source_size": [
+            2560,
+            1440
+          ],
+          "size": [
+            2560,
+            1440
+          ],
+          "rotate": 0,
+          "duration": 5.17
+        },
+        "delivery": "design/fool-apotheosis-20261031/videos/fool-apotheosis-v1.mp4",
+        "bytes": 2524897,
+        "sha256": "2adb01fba27306081f0a43254e53de66e68c6006b170862453fdef2a71308988",
+        "raw_sha256": "0a27826707925f01a3c1facbcdab8a1632bdccd1beaea393ec558e1aa2f33650",
+        "full_decode_passed": true,
+        "video_stream_unchanged": true,
+        "video_stream_sha256": "SHA256=0575afd43d541a483b979d2d85571a7fa24ea3ad214792bdf9bcf8f96e62fa7f",
+        "sampled_frames": 62,
+        "seam_mean_absolute_difference_8bit": 1.189777199074074,
+        "adjacent_mean_absolute_difference_8bit": 1.2128758727990283,
+        "adjacent_max_absolute_difference_8bit": 2.3632899305555557,
+        "left_50_percent_seam_difference_8bit": 0.8228009259259259,
+        "face_motion_mean_absolute_difference_8bit": 1.2671623500501181,
+        "audio": false,
+        "note": "Numeric seam difference is an aid, not proof of perceptually seamless looping."
+      },
+      "superseded": {
+        "task_id": "457895015723221",
+        "sha256": "8fb7782f06a789eb31942c48950cb6fcc91abf999445821de400e254d5ff2ae6",
+        "input": "assets/sequence-0.webp",
+        "input_sha256": "dc1cb09782564ec2e03748ec2c101f34d8607aab6750fb605c42a522d381104b",
+        "raw_file": "output/minimax-20261030/raw/sequence-0.mp4",
+        "raw_sha256": "3bf4a792d3bc1c7aff09f99d81dcaefe34ae2a56ee39cdc899a9445597abb42a"
+      },
+      "browser_validation": {
+        "checked_on": "2026-10-31",
+        "environment": "Codex in-app browser with native DSH CSS fixture",
+        "scope": "Sequence 0 only; not native backend acceptance",
+        "asset_sha256": "2adb01fba27306081f0a43254e53de66e68c6006b170862453fdef2a71308988",
+        "muted": true,
+        "loop": true,
+        "paused": false,
+        "actual_duration_seconds": 5.166667,
+        "total_video_frames": 2349,
+        "dropped_video_frames": 1,
+        "media_error": null,
+        "viewport": [
+          1706,
+          960,
+          0.9375
+        ],
+        "overflow": false
+      }
     }
   ],
-  "browser_validation": {
+  "updated_at": "2026-10-31",
+  "playback_policy": "Sequence 4 plays once and holds the final frame. Other nine sequences loop.",
+  "sequence_0_update_estimated_cost_cny": 4,
+  "sequence_0_update_billing_note": "One 5-second 2K MiniMax-H3 job; estimated at CNY 0.80/second. First two input images free. Account bill not inspected.",
+  "previous_browser_validation": {
     "environment": "Codex in-app Chromium browser",
     "checked_on": "2026-10-30",
     "completed_loops_per_video_at_observation": 10,
@@ -490,7 +549,5 @@
       2560,
       1440
     ]
-  },
-  "updated_at": "2026-10-30",
-  "playback_policy": "Sequence 4 plays once and holds the final frame. Other nine sequences loop."
+  }
 }

@@ -278,6 +278,7 @@ ${s} button:focus-visible,${s} [role="treeitem"]:focus-visible{outline:2px solid
 ${s} ::-webkit-scrollbar{width:8px;height:8px}
 ${s} ::-webkit-scrollbar-thumb{background:${alpha(t.accent,.3)};border-radius:8px;border:2px solid transparent;background-clip:padding-box}
 @media(max-width:1100px){${s} #lotm-atlas-background{--lotm-art-offset:${t.id==='8'?'-110px':'64px'}}}
+${t.id==='0'?`${s} #lotm-atlas-background{--lotm-art-offset:0px;--lotm-art-position:center 32px}${s} #lotm-atlas-background > video{top:32px;transform:translateX(-50%)}`:''}
 @media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} #lotm-atlas-background > video{inset:0;width:100%;height:100%;object-fit:cover;transform:none}${s} #lotm-atlas-background::after{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)})}${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){display:none}}
 @media(prefers-reduced-motion:reduce){${s} *,${s} *:before,${s} *:after{transition:none!important;animation:none!important}}
 `;

@@ -24,7 +24,7 @@ export const THEMES = rows.map(([id,name,colorName,dark,bg,panel,panelSoft,sideb
  codeFont:'"Cascadia Code", Consolas, "Courier New", monospace',
  line:dark?'#657383':'#BFCCCE',success:dark?'#9ED8B1':'#26704A',warning:dark?'#E7C78B':'#7C5A1C',danger:dark?'#F3A5AD':'#A3293D',
  asset:'sequence-'+id+(id==='8'?'-light':'')+'.webp',thumb:'thumb-'+id+(id==='8'?'-light':'')+'.webp',
- video:'videos/sequence-'+id+'.mp4',videoLoop:id!=='4',mediaVersion:'20261031.1',
+ video:'videos/sequence-'+id+'.mp4',videoLoop:id!=='4',mediaVersion:id==='0'?'20261031.2':'20261031.1',
  ornament:['#CFB887','#866B46','#786343','#CFAB7D','#CAB98C','#86583D','#806644','#886238','#C9A9BD','#C9B88D'][index]
 }));
 export const ASSET_PREFIX = '/api/lotm-sequence-atlas/assets/';

@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "encoding": {
     "format": "WebP",
     "quality": 84,
@@ -360,43 +360,59 @@
     {
       "seq": 0,
       "name": "愚者",
-      "scene": "灰雾长桌",
+      "scene": "克莱恩成神·空无斗篷与面容成形",
       "colorName": "中性深铅银灰",
       "source": {
+        "path": "design/fool-apotheosis-20261031/神诞-普通面容.png",
         "width": 1672,
         "height": 941,
-        "path": "design/plugin-assets/sequence-0-lead-silver.png",
-        "bytes": 2098805,
-        "sha256": "f3eccbb683cce2bb349708c85e463afb488aea62d90479a8da1cdb92cbdadf7c"
+        "bytes": 2039984,
+        "sha256": "7654635286c1bb3957489a233c9c0caf6d5e6367a11cb6821d217ecb6d58b6c8"
       },
       "paths": {
         "image": "assets/sequence-0.webp",
         "thumbnail": "assets/thumb-0.webp"
       },
       "image": {
+        "path": "assets/sequence-0.webp",
         "width": 1672,
         "height": 941,
-        "path": "assets/sequence-0.webp",
-        "bytes": 111796,
-        "sha256": "dc1cb09782564ec2e03748ec2c101f34d8607aab6750fb605c42a522d381104b"
+        "bytes": 117012,
+        "sha256": "39bf6cc11552a978d73dea7e403c79d4e19bd7726afd2558bdf3d336347debe4"
       },
       "thumbnail": {
+        "path": "assets/thumb-0.webp",
         "width": 320,
         "height": 180,
-        "path": "assets/thumb-0.webp",
-        "bytes": 9220,
-        "sha256": "d8a94ee0df6d72c10511eb6ab9e0912312d0241d2f1b23c63a9ca4a099a8bd6a"
+        "bytes": 8998,
+        "sha256": "9e46b44abadf26b2afd41c4ef99421c9b116089f8bd7de0ad598456ca7033615"
       },
-      "method": "built-in Image color edit; Pillow WebP encoding only",
+      "method": "Built-in Image selected first concept, revised to plain facial features; proportional WebP encoding only",
       "provenance": {
-        "editTarget": "design/scene-v2/images/00-愚者-灰雾长桌.png",
-        "generatedOriginal": "C:/Users/DELL/.codex/generated_images/01a186d1-7545-7c92-aa9a-fff05a6a09c1/exec-09ee153b-52f7-42de-b61c-041b7cb4ad5b.png",
-        "constraints": "color atmosphere only; retain single subject, composition and left negative space; no added people or props"
+        "selected_concept": "神诞",
+        "user_selected_in_chat": true,
+        "user_requested_plain_face_and_video": true,
+        "image_edit_generated_original": "exec-5299b68c-7279-4b39-b3af-fa3dfa55a3d1.png",
+        "original_concept_generated_original": "exec-a59c2e2a-f909-4967-828d-e2b39ec0afd5.png",
+        "sources": "design/fool-apotheosis-20261031/design-brief.md"
       },
-      "interfaceColorName": "雾银旧金"
+      "interfaceColorName": "雾银旧金",
+      "superseded_source": {
+        "width": 1672,
+        "height": 941,
+        "path": "design/plugin-assets/sequence-0-lead-silver.png",
+        "bytes": 2098805,
+        "sha256": "f3eccbb683cce2bb349708c85e463afb488aea62d90479a8da1cdb92cbdadf7c"
+      },
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "geometry": "Original dimensions; proportional thumbnail only"
+      }
     }
   ],
-  "totalImageBytes": 1448796,
+  "totalImageBytes": 1723654,
   "retainedVariants": [
     {
       "seq": 8,
@@ -435,5 +451,5 @@
       }
     }
   ],
-  "scene_update": "2026-10-30: Daly -> 4, Trissy -> 3; user-approved slot mapping"
+  "scene_update": "2026-10-31: Sequence 0 uses selected apotheosis scene with plain facial features; scenes 3/4/5 retain prior replacements."
 }

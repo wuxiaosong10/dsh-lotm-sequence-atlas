@@ -1,6 +1,6 @@
 {
   "name": "dsh-lotm-sequence-atlas",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "type": "module",
   "description": "诡秘十序列：十套独立场景配色与可读内容面板",
