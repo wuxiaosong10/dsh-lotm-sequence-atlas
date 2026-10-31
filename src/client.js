@@ -7,18 +7,17 @@ window.__ModuleLoader__.load({
     /* CORE */
     /* STYLES */
     /* CATALOG */
+    /* NATIVE_SKIN */
     const SOURCE = 'dsh-lotm-sequence-atlas';
     const BASELINE_KEY = STORAGE_KEY + '/previous-theme';
     const UI_STYLE = 'lotm-atlas-settings-css';
     const THEME_STYLE = 'lotm-atlas-theme-css';
     const BG_ID = 'lotm-atlas-background';
     const NS = 'settings.lotm-sequence-atlas';
-    // Lucide Power / Contrast, ISC; icon geometry is kept consistent with native controls.
+    const mediaUrl = (theme,filename) => ASSET_PREFIX + filename + '?v=' + theme.mediaVersion;
+    // Downloaded Tabler Outline, MIT. The same series is used across the skin.
     function icon(kind) {
-      const common = {width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round','aria-hidden':true};
-      return kind === 'power'
-        ? h('svg', common, h('path',{d:'M18.36 6.64a9 9 0 1 1-12.73 0'}), h('path',{d:'M12 2v10'}))
-        : h('svg', common,h('circle',{cx:12,cy:12,r:10}),h('path',{d:'M12 2a10 10 0 0 1 0 20Z',fill:'currentColor',stroke:'none'}));
+      return h('span',{className:'lotm-ui-icon','data-lotm-glyph':kind==='power'?'eye-off':'moon-stars','aria-hidden':true});
     }
     function putStyle(id, text) {
       let element = document.getElementById(id);
@@ -31,6 +30,7 @@ window.__ModuleLoader__.load({
       let storage;
       try { storage = window.localStorage; } catch { storage = undefined; }
       const store = createSelectionStore(storage);
+      const nativeSkin = createNativeSkin(document);
       let releaseTokens, active = false, applying = false, suppressRestore = false;
       let destroyed = false, desiredAsset = '', previousPreference;
       let activeVideo, desiredVideo = '';
@@ -204,7 +204,7 @@ window.__ModuleLoader__.load({
       }
       function playVideo() {
         const video = activeVideo;
-        if (!video || destroyed || document.hidden) return;
+        if (!video || destroyed || document.hidden || (!video.loop && video.ended)) return;
         try {
           video.play()?.catch(error => {
             if (activeVideo === video && !document.hidden && error?.name !== 'AbortError') failVideo(video);
@@ -215,17 +215,18 @@ window.__ModuleLoader__.load({
         if (document.hidden) activeVideo?.pause(); else playVideo();
       }
       function syncVideo(theme,bg) {
-        const url = ASSET_PREFIX + theme.video;
+        const url = mediaUrl(theme,theme.video);
         if (desiredVideo === url) return;
         stopVideo(); desiredVideo = url;
         delete bg.dataset.videoError;
         const video = document.createElement('video');
         activeVideo = video;
         video.muted = video.defaultMuted = true;
-        video.autoplay = video.loop = video.playsInline = true;
+        video.autoplay = video.playsInline = true;
+        video.loop = theme.videoLoop !== false;
         video.preload = 'auto'; video.controls = false;
         video.setAttribute('aria-hidden','true'); video.tabIndex = -1;
-        video.poster = ASSET_PREFIX + theme.asset;
+        video.poster = mediaUrl(theme,theme.asset);
         video.onplaying = () => {
           if (activeVideo !== video || destroyed) return;
           if (document.hidden) { video.pause(); return; }
@@ -240,6 +241,7 @@ window.__ModuleLoader__.load({
           restoreLegacySkins();
           removeChrome();
           removeStats();
+          nativeSkin.setEnabled(false);
           releaseTokens?.(); releaseTokens = undefined;
           document.getElementById(THEME_STYLE)?.remove();
           stopVideo();
@@ -264,8 +266,9 @@ window.__ModuleLoader__.load({
           // Suspend only the known legacy skin in this renderer. Its files,
           // selection and token layer remain intact and are restored on handoff.
           pauseLegacySkins();
-          const url = ASSET_PREFIX + theme.asset;
+          const url = mediaUrl(theme,theme.asset);
           document.documentElement.dataset.lotmAtlas = theme.id;
+          nativeSkin.setEnabled(true);
           let bg = document.getElementById(BG_ID);
           if (!bg) { bg = document.createElement('div'); bg.id = BG_ID; bg.setAttribute('aria-hidden','true'); document.body.appendChild(bg); }
           syncVideo(theme,bg);
@@ -327,7 +330,7 @@ window.__ModuleLoader__.load({
           h('div',{className:'lotm-atlas-grid'},THEMES.map(theme=>h('button',{
             key:theme.id,type:'button',className:'lotm-atlas-choice',title:'序列 '+theme.id+' · '+theme.name+' · '+theme.colorName,
             'aria-label':'序列 '+theme.id+' '+theme.name,'aria-pressed':state.sequence===theme.id,
-            onClick:()=>store.select(theme.id)},h('img',{src:ASSET_PREFIX+theme.thumb,alt:'',loading:'lazy',decoding:'async'})))));
+            onClick:()=>store.select(theme.id)},h('img',{src:mediaUrl(theme,theme.thumb),alt:'',loading:'lazy',decoding:'async'})))));
       }
       ctx.effect(() => {
         putStyle(UI_STYLE,SETTINGS_CSS);

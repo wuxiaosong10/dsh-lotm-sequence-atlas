@@ -1,0 +1,118 @@
+{
+  "series": "Tabler Icons Outline",
+  "author": "Paweł Kuna and Tabler contributors",
+  "license": "MIT",
+  "commit": "ed177a085b652fe04ec4f37ced867c94621e7840",
+  "source": "https://github.com/tabler/tabler-icons",
+  "license_source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/LICENSE",
+  "items": [
+    {
+      "name": "cards",
+      "file": "original/cards.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/cards.svg",
+      "bytes": 652
+    },
+    {
+      "name": "cube",
+      "file": "original/cube.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/cube.svg",
+      "bytes": 659
+    },
+    {
+      "name": "script",
+      "file": "original/script.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/script.svg",
+      "bytes": 445
+    },
+    {
+      "name": "stairs-up",
+      "file": "original/stairs-up.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/stairs-up.svg",
+      "bytes": 447
+    },
+    {
+      "name": "eye",
+      "file": "original/eye.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/eye.svg",
+      "bytes": 502
+    },
+    {
+      "name": "eye-off",
+      "file": "original/eye-off.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/eye-off.svg",
+      "bytes": 669
+    },
+    {
+      "name": "moon-stars",
+      "file": "original/moon-stars.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/moon-stars.svg",
+      "bytes": 572
+    },
+    {
+      "name": "pentagram",
+      "file": "original/pentagram.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/pentagram.svg",
+      "bytes": 542
+    },
+    {
+      "name": "send",
+      "file": "original/send.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/send.svg",
+      "bytes": 454
+    },
+    {
+      "name": "paperclip",
+      "file": "original/paperclip.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/paperclip.svg",
+      "bytes": 454
+    },
+    {
+      "name": "settings",
+      "file": "original/settings.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/settings.svg",
+      "bytes": 942
+    },
+    {
+      "name": "plus",
+      "file": "original/plus.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/plus.svg",
+      "bytes": 404
+    },
+    {
+      "name": "x",
+      "file": "original/x.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/x.svg",
+      "bytes": 406
+    },
+    {
+      "name": "minus",
+      "file": "original/minus.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/minus.svg",
+      "bytes": 379
+    },
+    {
+      "name": "chevron-down",
+      "file": "original/chevron-down.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/chevron-down.svg",
+      "bytes": 424
+    },
+    {
+      "name": "search",
+      "file": "original/search.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/search.svg",
+      "bytes": 433
+    },
+    {
+      "name": "layout-sidebar",
+      "file": "original/layout-sidebar.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/layout-sidebar.svg",
+      "bytes": 452
+    },
+    {
+      "name": "masks-theater",
+      "file": "original/masks-theater.svg",
+      "source": "https://raw.githubusercontent.com/tabler/tabler-icons/ed177a085b652fe04ec4f37ced867c94621e7840/icons/outline/masks-theater.svg",
+      "bytes": 850
+    }
+  ]
+}

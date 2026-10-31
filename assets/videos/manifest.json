@@ -9,9 +9,9 @@
   "requested_resolution": "2K",
   "actual_resolution": "2560x1440",
   "processing": "Stream-copy H.264 video, remove audio/subtitles/data, move MP4 metadata to front. No frame interpolation, crossfades, reversal, timing changes or new scenes.",
-  "estimated_cost_cny": 40.0,
-  "billing_note": "按官方2K输出每秒0.80元估算；每任务2张图片在前5张免费范围。未读取账户账单。",
-  "integration_status": "Integrated into DSH lotm plugin: per-sequence muted loop, still-image fallback, media cleanup and background pause. All ten installed HTTP video routes verified; final native desktop visual acceptance interrupted by user Escape.",
+  "estimated_cost_cny": 40,
+  "billing_note": "Active ten clips estimated at CNY 40 in total at 2K CNY 0.80/second. This update generated two new five-second clips (estimated CNY 8), reusing the previously generated Daly clip. Account bill not inspected.",
+  "integration_status": "1.2.0: sequence 3/4/5 replaced; compact occult UI implemented. 50 tests, build and syntax checks passed. Browser fixture verified ten palettes, centering, narrow layout, sequence 5 loop and sequence 4 held tail. Native desktop full-flow acceptance not completed.",
   "items": [
     {
       "sequence": 9,
@@ -24,7 +24,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -62,7 +62,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -100,7 +100,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -138,7 +138,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -171,17 +171,17 @@
       "file": "assets/videos/sequence-5.mp4",
       "input": "assets/sequence-5.webp",
       "input_sha256": "9e48bdeed071aa43d59f68c5f3c2330e4c21f2e318548f74cb8bf6d795db2538",
-      "task_id": "457895043760348",
+      "task_id": "457927852450037",
       "requested_duration_seconds": 5,
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
-      "file_bytes": 1351012,
-      "sha256": "d6f553a0fcd6be699d0fa3e72a10b439d23b992a7f69681694e65f9b87fd363a",
+      "file_bytes": 1616384,
+      "sha256": "9e12a391eac7cb7e0f9fc78151b5ce6b2b1729fef00596454151d33f39ddb9ac",
       "api_usage": {
         "total_seconds": 5,
         "input_seconds": 0,
@@ -191,73 +191,128 @@
         "prompt_tokens": 26040,
         "completion_tokens": 260390
       },
-      "raw_file": "output/minimax-20261030/raw/sequence-5.mp4",
-      "raw_sha256": "d796af7fa2d4eb1c6bfac2a80d7fb3dce36b92b09754a9aa0c14a0190105786e",
-      "loop_qa": {
-        "seam_mean_absolute_difference_8bit": 0.7494,
-        "adjacent_mean_absolute_difference_8bit": 0.5917,
-        "adjacent_max_absolute_difference_8bit": 2.1471,
-        "seam_vs_average_adjacent_ratio": 1.266
-      },
-      "prompt": "Animate only the supplied illustration into a quiet five-second looping desktop wallpaper. Both supplied images are the SAME image: start and finish on exactly this composition and open-eye pose. Preserve the source face, illustration style, colors, silhouette, object positions, clothing, framing and every architectural line. Locked-off tripod camera for the entire clip. Absolutely no camera movement, zoom, pan, orbit, dolly, reframing, cuts or scene transitions. This is a subtle living painting, never an action sequence. Character head, torso, arms, hands and legs stay in the original pose. Allow only the specifically listed tiny ambient details. Keep all movement very small, slow and soft, with smooth cyclic easing and no abrupt acceleration. Settled opening and ending. Maintain identical exposure and color, no brightness pumping or flicker. Calm unobtrusive left-side negative space. No new characters, props, text, logos or borders. Silent: no dialogue, music or effects. SCENE: the suspended small marionette under the large gloved hand, in the same deep emerald painting. Keep the large hand and every finger absolutely fixed. Preserve each thin puppet string, the original puppet pose, face and body silhouette. Only the string highlights faintly shimmer, a few loose fabric tips at the puppet's coat edge lightly breathe and the existing green fog rolls extremely slowly below. The puppet remains in its exact position: no dancing, no limb movement, no lifting or dropping, no pendulum swing of its body. Make the green fog a calm repeatable undulation, not an expanding effect. No extra strings, extra hands, new people, glowing eyes or new magical events.",
+      "raw_file": "output/minimax-scene-update-20261030/marionette-raw.mp4",
+      "raw_sha256": "055f73685c4aea60143f9a882cbbf41da80ad97fc8fa1d822fb86fa9ca760f8b",
+      "prompt": "固定镜头，保留原图诡秘木偶剧场的水彩画风、墨绿背景、右侧被丝线悬吊的同一个木偶和上方同一只黑色手套控制手，单一连续镜头。最重要的是下方木偶本人的手臂、手腕和手指真的要有清楚可见但小幅度的提线动作。0到1秒，上方黑色手套食指和中指轻轻弯动，牵起连接木偶手腕的细线；1到3秒，木偶画面右侧举起的那只手腕被轻轻向上拉起约原手掌半个高度，手肘相应小幅屈伸，木偶关节式的手指缓慢张开又蜷回；画面左侧较低的那只木偶手随另一根线轻轻抬起并转腕，手指也略微动作。动作由牵丝引发，丝线随对应手腕同步绷紧、放松，始终连接，不能凭空断裂或增生。木偶躯干轻轻左右悬摆、头部小幅被牵动，腿仅随惯性轻摆，衣摆有自然滞后。3到5秒，上方控制手松回，木偶的两只手、手腕、肘关节和整体悬吊姿态缓慢回到原图位置，首尾平稳衔接。要能在视频里看出木偶自己在动，而不仅是雾和线在动。所有运动都局限在原来右侧，不能走路、跳舞、转圈、换脸、变成真人或新增肢体，保留精致的木质关节和帽子。左侧大面积暗绿留白保持静止，薄雾仅有极轻起伏，背景亮度不闪烁。无镜头运动、推拉、旋转、切镜、转场、文字、新物件、额外人物或强粒子。无对白、音乐与音效。",
       "same_input_image_for_first_and_last_frame": true,
-      "video_stream_sha256": "d517d886de1e90caf0212ed535d4e934adf36628c286368fa31f4058eaa4e41c"
+      "scene": "提线木偶·双手与关节随线动作",
+      "playback": "loop",
+      "qa": {
+        "full_decode_passed": true,
+        "sampled_frames": 62,
+        "metadata": {
+          "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+          "codec": "h264",
+          "pix_fmt": "yuv420p(progressive)",
+          "fps": 24,
+          "source_size": [
+            2560,
+            1440
+          ],
+          "size": [
+            2560,
+            1440
+          ],
+          "rotate": 0,
+          "duration": 5.17
+        },
+        "adjacent_mean_change_8bit": 1.089542847791439,
+        "adjacent_max_change_8bit": 1.7509056712962963,
+        "left_region_first_last_difference_8bit": 0.3686913580246914,
+        "loop": true,
+        "seam_mean_absolute_difference_8bit": 0.7361385995370371
+      },
+      "superseded": {
+        "task_id": "457895043760348",
+        "sha256": "d6f553a0fcd6be699d0fa3e72a10b439d23b992a7f69681694e65f9b87fd363a",
+        "input": "assets/sequence-5.webp",
+        "input_sha256": "9e48bdeed071aa43d59f68c5f3c2330e4c21f2e318548f74cb8bf6d795db2538",
+        "raw_file": "output/minimax-20261030/raw/sequence-5.mp4",
+        "raw_sha256": "d796af7fa2d4eb1c6bfac2a80d7fb3dce36b92b09754a9aa0c14a0190105786e"
+      }
     },
     {
       "sequence": 4,
       "name": "诡法师",
       "file": "assets/videos/sequence-4.mp4",
-      "input": "assets/sequence-4.webp",
-      "input_sha256": "fc2c7787a4abdcbc437d520da0a0ffa05d8629a478556a5eee2c13104fcfa3f5",
-      "task_id": "457894770127093",
+      "input": "design/warm-scenes-20261030/daly-last-dance-approved.png",
+      "input_sha256": "e160b4a48caa8c09e33f39d717fec0707318c6986a0f5e33f04c64119d5ef3cb",
+      "task_id": "457911396991187",
       "requested_duration_seconds": 5,
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
-      "file_bytes": 1284601,
-      "sha256": "546d9e8dd2a84f9fe4e9597551765e470f601f1234b4e81e81c694e6cb95cb0a",
+      "file_bytes": 2392317,
+      "sha256": "b3a6be897c90a6eaf9d1411a522d4b7ef366cd6cd19aec635a1ab1f6dde135d6",
       "api_usage": {
         "total_seconds": 5,
         "input_seconds": 0,
         "output_seconds": 5,
-        "input_image_count": 2,
-        "total_tokens": 286430,
-        "prompt_tokens": 26040,
+        "input_image_count": 1,
+        "total_tokens": 273410,
+        "prompt_tokens": 13020,
         "completion_tokens": 260390
       },
-      "raw_file": "output/minimax-20261030/raw/sequence-4.mp4",
-      "raw_sha256": "98e2f7c34f4b64d529a0992a4c08419eddf7d42e567d808a2fa5e6c83f587cee",
-      "loop_qa": {
-        "seam_mean_absolute_difference_8bit": 0.8334,
-        "adjacent_mean_absolute_difference_8bit": 0.3941,
-        "adjacent_max_absolute_difference_8bit": 0.6745,
-        "seam_vs_average_adjacent_ratio": 2.115
+      "raw_file": "output/minimax-daly-dream-20261030/daly-last-dance-dream-raw.mp4",
+      "raw_sha256": "c05560405d4c2aa145bd665c6b52533503b27d5336431f8e093f4a0347bb5a93",
+      "prompt": "固定机位，单个连续镜头，16:9暖色水彩背景动画。严格延续首帧画风、人物长相、衣服、人物靠右和左侧约60%浅奶油色留白，左侧始终安静干净。成年戴莉与瘦削长脸、神情端正沉静的邓恩保持首帧脸部距离，邓恩脖颈挺直，不低头贴脸，不亲吻，不拥抱挤靠。戴莉全程轻闭双眼，脸上带满足又凄美的小小微笑。0到1秒，两人仍牵着手，只做极小幅、缓慢的重心摇曳与呼吸，像最后一支舞，绝不转圈或走动。1到4秒，幻梦逐渐消散：从已经半透明的裙摆、衣袖和下半身边缘开始，水彩颜色如纸上的湿颜料被清水轻轻化开，身体轮廓渐薄、局部透明，极少细腻浅金与淡玫瑰色水彩雾丝在人物附近缓缓散开。戴莉的身体明显比首帧更淡，邓恩作为梦中身影，外套与躯干也缓缓变得半透明。消散从下往上连续发生，轻柔、有层次，不是整幅图统一降低透明度。两人的脸最后才变淡，戴莉的闭眼微笑始终清楚可辨，牵手仍自然，面孔不变形。4到5秒，所有动作逐渐减速停稳，留下极淡的舞姿、戴莉微笑的温柔残影和暖色水彩余韵，像梦正要醒来；不要突然完全消失，不要恢复实体或重新出现。衣服边缘和少量发梢仅轻微随动。保持稀疏构图，所有动态限制在画面右侧。无镜头推拉、摇移、旋转、抖动、景深变化或任何切镜；无场景变化；无新人物、物件、建筑、花瓣、飞纸、密集粒子、爆炸、强光、烟雾遮脸、文字、标志。无对白、配乐与音效。结尾柔和停稳，没有黑场和硬切。",
+      "same_input_image_for_first_and_last_frame": false,
+      "scene": "戴莉·最后一舞与幻梦渐散",
+      "playback": "once-hold-last-frame",
+      "qa": {
+        "full_decode_passed": true,
+        "sampled_frames": 62,
+        "metadata": {
+          "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+          "codec": "h264",
+          "pix_fmt": "yuv420p(progressive)",
+          "fps": 24,
+          "source_size": [
+            2560,
+            1440
+          ],
+          "size": [
+            2560,
+            1440
+          ],
+          "rotate": 0,
+          "duration": 5.17
+        },
+        "adjacent_mean_change_8bit": 1.134487633765938,
+        "adjacent_max_change_8bit": 2.272204861111111,
+        "left_region_first_last_difference_8bit": 10.400351851851852,
+        "loop": false
       },
-      "prompt": "Animate only the supplied illustration into a quiet five-second looping desktop wallpaper. Both supplied images are the SAME image: start and finish on exactly this composition and open-eye pose. Preserve the source face, illustration style, colors, silhouette, object positions, clothing, framing and every architectural line. Locked-off tripod camera for the entire clip. Absolutely no camera movement, zoom, pan, orbit, dolly, reframing, cuts or scene transitions. This is a subtle living painting, never an action sequence. Character head, torso, arms, hands and legs stay in the original pose. Allow only the specifically listed tiny ambient details. Keep all movement very small, slow and soft, with smooth cyclic easing and no abrupt acceleration. Settled opening and ending. Maintain identical exposure and color, no brightness pumping or flicker. Calm unobtrusive left-side negative space. No new characters, props, text, logos or borders. Silent: no dialogue, music or effects. SCENE: the still dark-clothed man beside the existing ember-lit doorway and existing pale paper silhouettes. Maintain his exact fixed pose, face, head angle, hands and feet. Gently ripple only the outer coat hem and the edges of a few existing paper pieces, without moving their centers or changing their number. The small existing orange flames along the right architectural edge softly flicker in place, and a tiny amount of gray smoke curls slowly. Preserve the original charcoal and muted ember balance and all masonry lines. No walking, turning, casting, paper transforming into people, spreading fire, burning away paper, explosions, flying sheets or large sparks.",
-      "same_input_image_for_first_and_last_frame": true,
-      "video_stream_sha256": "65e85727d2f4a4c7f4b03d729a1d6d86e68837b0be3279fcc099ec4b68fcc8f4"
+      "superseded": {
+        "task_id": "457894770127093",
+        "sha256": "546d9e8dd2a84f9fe4e9597551765e470f601f1234b4e81e81c694e6cb95cb0a",
+        "input": "assets/sequence-4.webp",
+        "input_sha256": "fc2c7787a4abdcbc437d520da0a0ffa05d8629a478556a5eee2c13104fcfa3f5",
+        "raw_file": "output/minimax-20261030/raw/sequence-4.mp4",
+        "raw_sha256": "98e2f7c34f4b64d529a0992a4c08419eddf7d42e567d808a2fa5e6c83f587cee"
+      }
     },
     {
       "sequence": 3,
       "name": "古代学者",
       "file": "assets/videos/sequence-3.mp4",
-      "input": "assets/sequence-3.webp",
-      "input_sha256": "06395fcf6e9daa39064a53e585eb8b0d5659e4d33bb63c6b5970ec952ca5b44d",
-      "task_id": "457895141966027",
+      "input": "design/warm-scenes-20261030/trissy-standing-approved.png",
+      "input_sha256": "e40958fb267ab51b51717a146e8f7d4280d5ab9b697c56b083648c2c82afbff6",
+      "task_id": "457928252416197",
       "requested_duration_seconds": 5,
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
-      "file_bytes": 1421168,
-      "sha256": "1c0dccf4f5968c34a9e8e53dc0fa6f01e5d2a20a34c51928dd3d77b6ac14db43",
+      "file_bytes": 4894271,
+      "sha256": "ad561b689c3b2538b9f0db2720cb2ef4d2af356c6a07cbcdcfc5fd5f944d6407",
       "api_usage": {
         "total_seconds": 5,
         "input_seconds": 0,
@@ -267,17 +322,45 @@
         "prompt_tokens": 26040,
         "completion_tokens": 260390
       },
-      "raw_file": "output/minimax-20261030/raw/sequence-3.mp4",
-      "raw_sha256": "f7465790c8341f9a39457ecbe7e4d688ac08dc1d6bf92a1d01dcd79006ce8484",
-      "loop_qa": {
-        "seam_mean_absolute_difference_8bit": 0.8187,
-        "adjacent_mean_absolute_difference_8bit": 0.1756,
-        "adjacent_max_absolute_difference_8bit": 0.4002,
-        "seam_vs_average_adjacent_ratio": 4.663
-      },
-      "prompt": "Animate only the supplied illustration into a quiet five-second looping desktop wallpaper. Both supplied images are the SAME image: start and finish on exactly this composition and open-eye pose. Preserve the source face, illustration style, colors, silhouette, object positions, clothing, framing and every architectural line. Locked-off tripod camera for the entire clip. Absolutely no camera movement, zoom, pan, orbit, dolly, reframing, cuts or scene transitions. This is a subtle living painting, never an action sequence. Character head, torso, arms, hands and legs stay in the original pose. Allow only the specifically listed tiny ambient details. Keep all movement very small, slow and soft, with smooth cyclic easing and no abrupt acceleration. Settled opening and ending. Maintain identical exposure and color, no brightness pumping or flicker. Calm unobtrusive left-side negative space. No new characters, props, text, logos or borders. Silent: no dialogue, music or effects. SCENE: the close-up black-gloved hand already holding the delicate antique pocket watch over the open old book, against pale historical mist and distant ruined arches. Freeze the exact hand, all fingers, watch case and chain geometry, open pages and book position. Only the soft silver-blue mist very slowly curls in layered depth, two or three tiny dust motes drift gently in the existing light, and a restrained highlight breathes on the watch metal. A page corner may barely tremble but must never turn. Do not reach, lower or raise the hand, rotate the watch, swing the chain, flip a page or introduce new text, clock faces, ruins or objects. The watch and hand must remain perfectly sharp and stable.",
+      "raw_file": "output/minimax-scene-update-20261030/trissy-raw.mp4",
+      "raw_sha256": "cabb388e041470df4251dacb6365fbefb000f753656dcd8db40b0b28d6870bc9",
+      "prompt": "固定镜头，单一连续镜头，保留首帧成年特莉丝正面站立、身体挺直、面向前方的完整姿态，绝不迈步、前倾、转身或摇晃镜头。保持瘦削精致但带伤的脸、血痕、服装和身份。她的眼睛始终无惧地直视前方敌人，带着邪气、凄美且誓死的微笑；0到1秒姿态稳定，中间嘴角极轻地再扬一点，胸口有自然细微呼吸；黑色长发的少量发梢和破损披风边缘轻轻往右浮起后落回，发丝有神降力量的细微起伏但不变成蛇。皮肤原有的细裂纹仅有极微弱的暗红反光，不能增伤或喷血，不能改变脸部结构。双手保持自然垂下，手指仅细微收紧再放松。4到5秒所有动作慢慢收敛并回到首帧姿态、表情、发丝和披风位置，首尾自然衔接，画面无黑场、无淡出、无切换。人物固定在右侧，左侧60%的浅烟灰青留白和深墨绿渐变始终不变且安静。保持原有水彩插画风格。没有新增人物、物件、花瓣、粒子、符号、魔法爆炸、文字；不推镜，不缩放，不摇移，无对白、音乐与音效。只做克制的局部微动作，保留冷静的毁灭决心。",
       "same_input_image_for_first_and_last_frame": true,
-      "video_stream_sha256": "40329e8527e776b1235118f1312210093401bca990243518f11eaf30634d9e92"
+      "scene": "特莉丝·带伤直面敌人",
+      "playback": "loop",
+      "qa": {
+        "full_decode_passed": true,
+        "sampled_frames": 62,
+        "metadata": {
+          "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+          "codec": "h264",
+          "pix_fmt": "yuv420p(progressive)",
+          "fps": 24,
+          "source_size": [
+            2560,
+            1440
+          ],
+          "size": [
+            2560,
+            1440
+          ],
+          "rotate": 0,
+          "duration": 5.17
+        },
+        "adjacent_mean_change_8bit": 1.6633091416211294,
+        "adjacent_max_change_8bit": 3.32203125,
+        "left_region_first_last_difference_8bit": 1.1282685185185186,
+        "loop": true,
+        "seam_mean_absolute_difference_8bit": 1.5363310185185186
+      },
+      "superseded": {
+        "task_id": "457895141966027",
+        "sha256": "1c0dccf4f5968c34a9e8e53dc0fa6f01e5d2a20a34c51928dd3d77b6ac14db43",
+        "input": "assets/sequence-3.webp",
+        "input_sha256": "06395fcf6e9daa39064a53e585eb8b0d5659e4d33bb63c6b5970ec952ca5b44d",
+        "raw_file": "output/minimax-20261030/raw/sequence-3.mp4",
+        "raw_sha256": "f7465790c8341f9a39457ecbe7e4d688ac08dc1d6bf92a1d01dcd79006ce8484"
+      }
     },
     {
       "sequence": 2,
@@ -290,7 +373,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -328,7 +411,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -366,7 +449,7 @@
       "actual_duration_seconds": 5.17,
       "width": 2560,
       "height": 1440,
-      "fps": 24.0,
+      "fps": 24,
       "codec": "h264",
       "pixel_format": "yuv420p(progressive)",
       "audio": false,
@@ -407,5 +490,7 @@
       2560,
       1440
     ]
-  }
+  },
+  "updated_at": "2026-10-30",
+  "playback_policy": "Sequence 4 plays once and holds the final frame. Other nine sequences loop."
 }

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "encoding": {
     "format": "WebP",
     "quality": 84,
@@ -198,77 +198,90 @@
     {
       "seq": 4,
       "name": "诡法师",
-      "scene": "纸人与火焰",
-      "colorName": "石墨黑与暗橙",
+      "scene": "戴莉·最后一舞与幻梦渐散",
+      "colorName": "暮金灰玫",
       "source": {
+        "path": "design/warm-scenes-20261030/daly-last-dance-approved.png",
         "width": 1672,
         "height": 941,
-        "path": "design/plugin-assets/sequence-4-graphite-ember.png",
-        "bytes": 2025804,
-        "sha256": "87b382a49e8711ba4893e9b340ddeea1d538c87f8d56ccd1c7ba438833bf4050"
+        "bytes": 2287685,
+        "sha256": "e160b4a48caa8c09e33f39d717fec0707318c6986a0f5e33f04c64119d5ef3cb"
       },
       "paths": {
         "image": "assets/sequence-4.webp",
         "thumbnail": "assets/thumb-4.webp"
       },
       "image": {
+        "path": "assets/sequence-4.webp",
         "width": 1672,
         "height": 941,
-        "path": "assets/sequence-4.webp",
-        "bytes": 122048,
-        "sha256": "fc2c7787a4abdcbc437d520da0a0ffa05d8629a478556a5eee2c13104fcfa3f5"
+        "bytes": 161152,
+        "sha256": "fdb5d232208739639a91e53854d481e42fb480f6d5cc0bb5847c2576cfd1ee76"
       },
       "thumbnail": {
+        "path": "assets/thumb-4.webp",
         "width": 320,
         "height": 180,
-        "path": "assets/thumb-4.webp",
-        "bytes": 9252,
-        "sha256": "e115e8f4821c3354af98b3092c4ebaf5708e5455a3096f18355d564a23790079"
+        "bytes": 9410,
+        "sha256": "3c5e30a374491d915ff68fb90d5982c580fb470a1304e0a26e037b92017fe3b7"
       },
-      "method": "built-in Image color edit; Pillow WebP encoding only",
+      "method": "User-approved built-in Image illustration; WebP conversion and proportional thumbnail only",
       "provenance": {
-        "editTarget": "design/scene-v2/images/04-诡法师-纸人与火焰.png",
-        "generatedOriginal": "C:/Users/DELL/.codex/generated_images/01a186d1-7545-7c92-aa9a-fff05a6a09c1/exec-735441bb-8e50-43e4-9822-979c8282bc30.png",
-        "constraints": "color atmosphere only; retain single subject, composition and left negative space; no added people or props"
+        "approved_in_chat": true,
+        "original_generated_image": "exec-061f3f34-1595-4eb8-9fea-f386a711ce4b.png"
       },
-      "interfaceColorName": "烟灰杏焰"
+      "interfaceColorName": "暮金灰玫",
+      "superseded_source": {
+        "width": 1672,
+        "height": 941,
+        "path": "design/plugin-assets/sequence-4-graphite-ember.png",
+        "bytes": 2025804,
+        "sha256": "87b382a49e8711ba4893e9b340ddeea1d538c87f8d56ccd1c7ba438833bf4050"
+      }
     },
     {
       "seq": 3,
       "name": "古代学者",
-      "scene": "从历史中取物",
-      "colorName": "雾银青瓷",
+      "scene": "特莉丝·带伤直面敌人",
+      "colorName": "烟灰青/暗酒红",
       "source": {
-        "path": "design/plugin-assets/sequence-3-06-雾银青瓷.png",
+        "path": "design/warm-scenes-20261030/trissy-standing-approved.png",
         "width": 1672,
         "height": 941,
-        "bytes": 2162708,
-        "sha256": "4d644f31d73d59319902a18a9b8fc9da69a61cc425352fc9592bd04e8e72926a"
+        "bytes": 2824195,
+        "sha256": "e40958fb267ab51b51717a146e8f7d4280d5ab9b697c56b083648c2c82afbff6"
       },
       "paths": {
         "image": "assets/sequence-3.webp",
         "thumbnail": "assets/thumb-3.webp"
       },
       "image": {
+        "path": "assets/sequence-3.webp",
         "width": 1672,
         "height": 941,
-        "path": "assets/sequence-3.webp",
-        "bytes": 122390,
-        "sha256": "06395fcf6e9daa39064a53e585eb8b0d5659e4d33bb63c6b5970ec952ca5b44d"
+        "bytes": 256250,
+        "sha256": "80a2802eba70dc08894a8e6216ac89747388fef04baddbf75fd15f4af2cae8f4"
       },
       "thumbnail": {
+        "path": "assets/thumb-3.webp",
         "width": 320,
         "height": 180,
-        "path": "assets/thumb-3.webp",
-        "bytes": 8350,
-        "sha256": "e5480a2455a646a03311f5666784dd85f194715d9396f31717ccf3d1aebfb657"
+        "bytes": 11754,
+        "sha256": "e8b554caaa4823fab4b2aeab264c9f8bb3b58634c8ab15160cc2cf141f013920"
       },
-      "method": "built-in Image color edit; Pillow WebP encoding only",
+      "method": "User-approved built-in Image illustration; WebP conversion and proportional thumbnail only",
       "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
-        "existingColorVariant": true
+        "approved_in_chat": true,
+        "original_generated_image": "exec-52ece8f6-de3f-48f2-b762-9a18a22bedf5.png"
       },
-      "interfaceColorName": "青瓷旧金"
+      "interfaceColorName": "青瓷旧金",
+      "superseded_source": {
+        "path": "design/plugin-assets/sequence-3-06-雾银青瓷.png",
+        "width": 1672,
+        "height": 941,
+        "bytes": 2162708,
+        "sha256": "4d644f31d73d59319902a18a9b8fc9da69a61cc425352fc9592bd04e8e72926a"
+      }
     },
     {
       "seq": 2,
@@ -421,5 +434,6 @@
         "existingColorVariant": true
       }
     }
-  ]
+  ],
+  "scene_update": "2026-10-30: Daly -> 4, Trissy -> 3; user-approved slot mapping"
 }

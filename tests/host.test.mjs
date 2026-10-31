@@ -15,10 +15,10 @@ test('all packaged active and retained images can be served as actual WebP files
 });
 test('only known exact asset paths are registered; no traversal handler',()=>{
  const routes=createAssetRoutes({read:()=>Buffer.from('webp')});
- assert.equal(routes.length,33);
+ assert.equal(routes.length,53);
  assert.ok(routes.every(r=>r.kind==='exact'));
  assert.equal(routes.filter(r=>r.path.includes('../')).length,0);
- assert.equal(new Set(routes.map(r=>r.path)).size,33);
+ assert.equal(new Set(routes.map(r=>r.path)).size,53);
 });
 
 const response=()=>({writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}});
@@ -50,14 +50,23 @@ test('video ranges handle suffix, open end and unsatisfiable requests',()=>{
   assert.equal(res.status,416,range);assert.equal(res.headers['content-range'],'bytes */10');
  }
 });
-test('only the retained column PNG is served; rejected throne is not exposed',()=>{
+test('retained column and generated occult PNGs are served; rejected throne is not exposed',()=>{
  const routes=createAssetRoutes().filter(r=>r.path.endsWith('.png'));
- assert.deepEqual(routes.map(r=>r.path.split('/').at(-1)),['pillar-fog-slim.png']);
+ assert.deepEqual(routes.map(r=>r.path.split('/').at(-1)),['pillar-fog-slim.png','occult-eye.png','occult-corner.png']);
  for(const route of routes){
   const res={writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}};
   route.handler({method:'GET'},res);
   assert.equal(res.status,200);assert.equal(res.headers['content-type'],'image/png');
   assert.equal(res.body.toString('hex',0,8),'89504e470d0a1a0a');
+ }
+});
+
+test('all downloaded icons serve a safe SVG with the correct MIME type',()=>{
+ const routes=createAssetRoutes().filter(r=>r.path.endsWith('.svg'));assert.equal(routes.length,18);
+ for(const route of routes){
+  const res=response();route.handler({method:'GET'},res);
+  assert.equal(res.status,200);assert.equal(res.headers['content-type'],'image/svg+xml');
+  const svg=res.body.toString();assert.match(svg,/<svg\s/);assert.doesNotMatch(svg,/<script|<foreignObject|\bonload=|https?:\/\/(?!www.w3.org)/i);
  }
 });
 test('GET/HEAD, method errors and missing assets are predictable',()=>{

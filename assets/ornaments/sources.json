@@ -1,0 +1,38 @@
+{
+  "generated_ornaments": [
+    {
+      "file": "occult-eye.png",
+      "generator": "OpenAI Image tool",
+      "visual_reference": "design/ui-refinement-20261030/selected-deep-mist-brass.png",
+      "role": "eye crest and watermark",
+      "width": 1254,
+      "height": 1254,
+      "transparent": true,
+      "alpha_bounds": [
+        61,
+        75,
+        1228,
+        1214
+      ],
+      "sha256": "1ffc55ac7ed49a12fa1b97c415f4f2fe9c725a670742a381b307895a0ba85736",
+      "rendering": "CSS alpha mask, recolored by active sequence"
+    },
+    {
+      "file": "occult-corner.png",
+      "generator": "OpenAI Image tool",
+      "visual_reference": "design/ui-refinement-20261030/selected-deep-mist-brass.png",
+      "role": "composer corner engraving",
+      "width": 1254,
+      "height": 1254,
+      "transparent": true,
+      "alpha_bounds": [
+        33,
+        31,
+        1230,
+        1142
+      ],
+      "sha256": "f509ba007a070064d583380629cdfc4c030415e03e664ad9abdfb02bb8829efd",
+      "rendering": "CSS alpha mask, recolored by active sequence"
+    }
+  ]
+}

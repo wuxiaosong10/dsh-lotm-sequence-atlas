@@ -11,6 +11,7 @@ const source=(path)=>readFileSync(new URL('../src/'+path,import.meta.url),'utf8'
 const clientSource=source('client.js')
  .replace('/* CORE */',source('core.mjs').replace(/^export /gm,''))
  .replace('/* STYLES */',source('styles.mjs').replace(/^import .*$/gm,'').replace(/^export /gm,''))
+ .replace('/* NATIVE_SKIN */',source('native-skin.mjs').replace(/^export /gm,''))
  .replace('/* CATALOG */','const THEMES='+JSON.stringify(THEMES)+';const ASSET_PREFIX='+JSON.stringify(ASSET_PREFIX)+';');
 
 function fixture(saved,baseline,{ResizeObserver}={}) {
@@ -49,7 +50,7 @@ function fixture(saved,baseline,{ResizeObserver}={}) {
 test('sequence background uses one muted loop; readiness, switching and shutdown release old media',()=>{
  const f=fixture({sequence:'8',readability:'clear'}),d=f.w.document;
  const old=d.querySelector('#lotm-atlas-background video');assert.ok(old);
- assert.equal(old.getAttribute('src'),ASSET_PREFIX+'videos/sequence-8.mp4');
+ assert.equal(new URL(old.getAttribute('src'),'https://desktop.test').pathname,ASSET_PREFIX+'videos/sequence-8.mp4');
  assert.equal(old.muted,true);assert.equal(old.defaultMuted,true);assert.equal(old.loop,true);
  assert.equal(old.autoplay,true);assert.equal(old.playsInline,true);assert.equal(old.controls,false);
  old.dispatchEvent(new f.w.Event('playing'));
@@ -90,6 +91,43 @@ test('autoplay that finishes starting in a hidden window pauses before exposing 
  f.stop();assert.equal(video.getAttribute('src'),null);
 });
 
+test('Daly dream holds its final frame across visibility and readability changes, then restarts only after reselection',()=>{
+ const f=fixture({sequence:'4',readability:'clear'}),d=f.w.document;
+ const video=d.querySelector('video');
+ assert.equal(video.loop,false,'a progressive disappearance must not pop back to its first frame');
+ video.dispatchEvent(new f.w.Event('playing'));
+ Object.defineProperty(video,'ended',{configurable:true,value:true});
+ video.dispatchEvent(new f.w.Event('ended'));
+ const plays=f.media.filter(([op,v])=>op==='play'&&v===video).length;
+ Object.defineProperty(d,'hidden',{configurable:true,value:true});
+ d.dispatchEvent(new f.w.Event('visibilitychange'));
+ Object.defineProperty(d,'hidden',{configurable:true,value:false});
+ d.dispatchEvent(new f.w.Event('visibilitychange'));
+ f.click('清晰内容面');
+ assert.equal(f.media.filter(([op,v])=>op==='play'&&v===video).length,plays);
+ assert.equal(d.querySelector('video'),video);
+ assert.equal(d.getElementById('lotm-atlas-background').dataset.videoReady,'true');
+ f.click('序列 5 秘偶大师');
+ assert.equal(d.querySelector('video').loop,true);
+ f.click('序列 4 诡法师');
+ const replay=d.querySelector('video');
+ assert.notEqual(replay,video);assert.equal(replay.loop,false);
+ assert.equal(video.getAttribute('src'),null);
+ assert.ok(f.media.some(([op,v])=>op==='play'&&v===replay));
+ f.stop();
+});
+
+test('updated media URLs bypass the previous release cache for video, poster and setting thumbnails',()=>{
+ const f=fixture({sequence:'3',readability:'clear'}),d=f.w.document;
+ const video=d.querySelector('video');
+ const check=(value,path)=>{const url=new URL(value,'https://desktop.test');assert.equal(url.pathname,ASSET_PREFIX+path);assert.ok(url.searchParams.get('v'),'release media needs a cache revision');};
+ check(video.getAttribute('src'),'videos/sequence-3.mp4');
+ check(video.poster,'sequence-3.webp');
+ const choice=f.buttons().find(b=>b.props['aria-label']==='序列 3 古代学者');
+ check(choice.children[0].props.src,'thumb-3.webp');
+ f.stop();
+});
+
 test('native settings exposes ten named image choices; activation/close restores old preference and no old key is changed',()=>{
  const f=fixture();
  assert.equal(f.buttons().filter(b=>b.props.className==='lotm-atlas-choice').length,10);
@@ -110,7 +148,7 @@ test('restored selection survives reload baseline; rapid image responses cannot 
  const latest=f.images.at(-1);latest.onload();
  f.images[0].onload();
  assert.ok(f.w.document.getElementById('lotm-atlas-theme-css').textContent.includes('sequence-8-light.webp'));
- assert.equal(f.w.document.getElementById('lotm-atlas-background').dataset.asset,'/api/lotm-sequence-atlas/assets/sequence-8-light.webp');
+ assert.equal(new URL(f.w.document.getElementById('lotm-atlas-background').dataset.asset,'https://desktop.test').pathname,'/api/lotm-sequence-atlas/assets/sequence-8-light.webp');
  f.click('关闭诡秘风格');assert.equal(f.schemeCalls.at(-1),'system');f.stop();
 });
 test('choosing another palette hands off without clobbering its theme; unload removes every plugin node',()=>{
