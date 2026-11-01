@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "description": "诡秘十序列：十套独立场景配色与可读内容面板",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas.git"
+  },
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",

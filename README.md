@@ -31,9 +31,25 @@
 
 本插件面向DSH桌面端，不是独立网页服务。入口为 `lib/index.js`、`lib/client.js`，注册配置为 `cordis.patch.yml`。
 
+公开仓库：[wuxiaosong10/dsh-lotm-sequence-atlas](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas)。安装到已有DSH profile时，可使用：
+
+```powershell
+dsh plugin --profile desktop add github:wuxiaosong10/dsh-lotm-sequence-atlas
+```
+
+需要固定安装版本时，在仓库标识末尾加 `#<commit-sha>`；profile名称按实际环境替换。
+
 本机安装位置为 `%USERPROFILE%\.dsh\profiles\desktop\node_modules\dsh-lotm-sequence-atlas`。当前安装目录通过junction指向本项目，因此 `lib/` 与 `assets/` 是实际运行文件，必须保留。修改源代码后先构建，再由DSH正常重载插件；无需重装其他主题。
 
 项目不保留安装包。在另一台电脑安装时，先按下文生成包，再按该DSH版本的本地插件安装方式导入，并使用包内的 `cordis.patch.yml` 注册。
+
+### 配置、权限与卸载
+
+主题及内容清晰度通过插件设置选择并保存本地偏好，不需要单独配置模型或API Key。
+
+插件使用宿主的主题、语言、渲染和设置服务，修改界面样式与导航文案，并注册54条本地资源路由。Host从本插件的固定素材白名单读取文件，图片和视频均由本地提供。
+
+关闭主题会恢复宿主原有文案和明暗偏好。卸载时，在DSH插件管理中移除此插件及对应的bundle安装项；原有Gradually主题可继续使用。
 
 ## 开发与打包
 
