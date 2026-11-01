@@ -2,18 +2,18 @@
 // each separates story/action and complementary navigation pigments.
 const rows = [
  // id, name, colorName, dark, base, panel, soft, sidebar, ink, muted, action, auxiliary, mistStart, mistEnd, decorativeGradient
- ['9','占卜家','夜蓝月铜',true,'#141B29','#202A37','#2B3745','#17232C','#F0F4F6','#B9CAD1','#DFC08B','#8FCFD0','#294B62','#665274',true],
- ['8','小丑','象牙绯红',false,'#F4EFE8','#FCFAF6','#ECE5E0','#DFE9E6','#24323A','#48595F','#854055','#356A72','#BDD5D7','#DFB8AE',true],
+ ['9','占卜家','夜青月铜',true,'#101F26','#1C3038','#293F48','#13252B','#F0F4F6','#B9CAD1','#D9BB8A','#8FCFD0','#294F55','#665274',true],
+ ['8','小丑','象牙绯红',false,'#F4ECEA','#FCF8F6','#EDE0DF','#EADDDC','#24323A','#48595F','#8D3651','#356A72','#BDD5D7','#DFB8AE',true],
  ['7','魔术师','雾麦梅紫',false,'#EFEEE4','#FAFAF4','#E8E9DC','#E3E7DB','#2E372F','#4E5A4A','#53673D','#865365','#D1D8B9','#D7C39B',false],
- ['6','无面人','深海古铜',true,'#111D31','#1B2A43','#27364F','#152A38','#F2F6FA','#BBCBDC','#E2B98B','#91C9E0','#254F77','#785743',true],
+ ['6','无面人','靛海古铜',true,'#101A32','#1B2945','#28364F','#14243B','#F2F6FA','#BBCBDC','#E2B98B','#91C9E0','#254F77','#785743',true],
  ['5','秘偶大师','墨绿旧金',true,'#10231F','#1B332C','#2C443A','#10231F','#EEE5D2','#BBD2C5','#D1BC91','#9EBFAE','#275E52','#6D536F',false],
- ['4','诡法师','暮金灰玫',false,'#F2ECE3','#FCF8F2','#E9DFD6','#E7DDD5','#382F2C','#62534E','#804C40','#3F6269','#D4CBC0','#CDAFA5',true],
+ ['4','诡法师','灰玫旧铜',false,'#EDE5E7','#FAF5F5','#E5D9DD','#DFD2D7','#382F32','#625158','#81505B','#3F6269','#CDBEC6','#CDB1B8',true],
  ['3','古代学者','青瓷旧金',false,'#EDF1F0','#FAFBF9','#E2EAE9','#DEE8E7','#283B40','#465C62','#40636A','#7A5B36','#C6D9D2','#E0D0B6',false],
- ['2','奇迹师','奶杏孔雀',false,'#F4EEE2','#FCF9F2','#EEE4D5','#E9E4D9','#3E342A','#5C5145','#80572C','#3F656B','#C3D9D5','#E2C497',true],
+ ['2','奇迹师','奶杏孔雀',false,'#F4E9D8','#FCF7EE','#EBDEC9','#E9DFC9','#3E342A','#5C5145','#35656B','#785327','#C3D9D5','#E2C497',true],
  ['1','诡秘侍者','紫幕冷翠',true,'#251C31','#342B43','#443851','#1F2C33','#F8F1FC','#D1C2DE','#E1B9CB','#9ECEC5','#57416F','#2F645D',true],
- ['0','愚者','雾银旧金',true,'#202831','#2C3743','#3A4551','#242E39','#F5F7FA','#C7D0DA','#DDC397','#A9C6D5','#40576B','#745B60',false],
+ ['0','愚者','雾银旧金',true,'#25282D','#34393F','#41484E','#292E34','#F5F7FA','#C7D0DA','#D4C7AF','#B7CAD3','#40576B','#745B60',false],
 ];
-const codeSurfaces = ['#0E1722','#FBF8F2','#F7F8EE','#0D1728','#0E211A','#FAF6EF','#F4F9F7','#FCF7ED','#1B1427','#171F2A'];
+const codeSurfaces = ['#0C1C22','#FCF7F5','#F7F8EE','#0D152A','#0E211A','#F8F1F3','#F4F9F7','#FCF7ED','#1B1427','#1D2227'];
 export const THEMES = rows.map(([id,name,colorName,dark,bg,panel,panelSoft,sidebar,text,muted,accent,aux,mistStart,mistEnd,gradient],index) => ({
  id,name,colorName,dark,bg,panel,panelSoft,sidebar,text,muted,accent,aux,onAccent:dark?'#1F2630':'#FFFFFF',
  chromeBg:sidebar,mistStart,mistEnd,gradient,
@@ -25,6 +25,8 @@ export const THEMES = rows.map(([id,name,colorName,dark,bg,panel,panelSoft,sideb
  line:dark?'#657383':'#BFCCCE',success:dark?'#9ED8B1':'#26704A',warning:dark?'#E7C78B':'#7C5A1C',danger:dark?'#F3A5AD':'#A3293D',
  asset:'sequence-'+id+(id==='8'?'-light':'')+'.webp',thumb:'thumb-'+id+(id==='8'?'-light':'')+'.webp',
  video:'videos/sequence-'+id+'.mp4',videoLoop:id!=='4',mediaVersion:id==='0'?'20261031.2':'20261031.1',
+ artOffset:({'9':'clamp(24px,3vw,48px)','8':'calc(-1 * clamp(110px,10vw,180px))','6':'0px','5':'calc(-1 * clamp(48px,5vw,96px))','4':'clamp(32px,4vw,64px)','3':'calc(-1 * clamp(32px,4vw,64px))','0':'0px'})[id]||'clamp(72px,9vw,160px)',
+ artTop:id==='0'?'32px':(['9','8','6','4','3','2'].includes(id)?'clamp(76px,10vh,100px)':undefined),
  ornament:['#CFB887','#866B46','#786343','#CFAB7D','#CAB98C','#86583D','#806644','#886238','#C9A9BD','#C9B88D'][index]
 }));
 export const ASSET_PREFIX = '/api/lotm-sequence-atlas/assets/';

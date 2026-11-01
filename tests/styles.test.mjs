@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {THEMES} from '../src/catalog.mjs';
-import {themeCss} from '../src/styles.mjs';
+import {themeCss,SETTINGS_CSS} from '../src/styles.mjs';
 import {contrastRatio} from '../src/core.mjs';
 
 test('resident DSH conversation root cannot hide artwork behind its opaque base fill',()=>{
@@ -53,18 +53,18 @@ test('Windows central panes keep the scene visible for both div and main contain
  }
 });
 
-function processStyleFixture(theme){
+function processStyleFixture(theme,readability='clear'){
  const dom=new JSDOM(`<html data-lotm-atlas="${theme.id}"><head></head><body><button class="hE4tRW_root" data-turn-process disabled>已完成</button><div class="BE0jCW_root" data-step-process data-group-expanded-mode><div class="VJlF5q_root" data-variant="think"><button data-disclosure-header><span class="VJlF5q_title">思考</span><span class="VJlF5q_summary">A long reasoning preview</span></button></div><div data-tool="command"><span class="EqXNNG_summary">inspect assets/manifest.json</span></div><div data-tool="command" data-state="error"><span class="EqXNNG_summary" data-error>失败</span></div></div><div class="xMeOpW_body"><p>旧档案中的线索</p></div><button id="send" disabled>发送</button></body></html>`);
  const d=dom.window.document,host=d.createElement('style');host.textContent=`[data-disclosure-header]{font-weight:600}.EqXNNG_summary[data-error]{color:${theme.danger}}`;d.head.append(host);
- const own=d.createElement('style');own.textContent=themeCss(theme,'/scene.webp');d.head.append(own);
+ const own=d.createElement('style');own.textContent=themeCss(theme,'/scene.webp',readability);d.head.append(own);
  return dom;
 }
 const rgbaChannels=css=>(css.match(/[\d.]+/g)||[]).map(Number);
 const rgbHex=values=>'#'+values.slice(0,3).map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
 
 test('process and prose use translucent reading surfaces with enough contrast over either a bright or dark scene',()=>{
- for(const theme of THEMES){
-  const dom=processStyleFixture(theme),{document,getComputedStyle}=dom.window;
+ for(const theme of THEMES)for(const mode of ['clear','balanced']){
+  const dom=processStyleFixture(theme,mode),{document,getComputedStyle}=dom.window;
   for(const [surfaceSelector,inkSelectors]of [
    ['[data-step-process]',['.VJlF5q_summary','[data-tool]:not([data-state="error"]) .EqXNNG_summary']],
    ['.xMeOpW_body',['.xMeOpW_body']],
@@ -90,4 +90,30 @@ test('read-only progress labels remain visible while disabled actions and error 
  assert.ok(Number(getComputedStyle(document.querySelector('.VJlF5q_summary')).fontWeight)<600);
  assert.equal(document.querySelector('.VJlF5q_summary').textContent,'A long reasoning preview');
  dom.window.close();
+});
+
+test('settings portals and theme choices use the active palette instead of host blue',()=>{
+ for(const theme of THEMES){
+  const dom=new JSDOM(`<html data-lotm-atlas="${theme.id}"><head></head><body><div role="dialog" data-shortcut-modal="settings"><nav><button class="AnXs9G_navCell AnXs9G_active" aria-current="true">通用设置</button></nav><section class="lotm-atlas-settings"><button class="lotm-atlas-choice" aria-pressed="true"></button></section><input id="field"><button role="switch" aria-checked="true"></button></div></body></html>`);
+  const {document,getComputedStyle}=dom.window;
+  const host=document.createElement('style');host.textContent='body{--dsw-alias-brand-primary:#6688ff;--dsw-alias-bg-layer-2:#fff}.AnXs9G_active{background:#dde5ff}'+SETTINGS_CSS;document.head.append(host);
+  const own=document.createElement('style');own.textContent=themeCss(theme,'/scene.webp');document.head.append(own);
+  const choice=getComputedStyle(document.querySelector('.lotm-atlas-choice'));
+  assert.equal(rgbHex(rgbaChannels(choice.borderTopColor)),theme.accent.toLowerCase());
+  assert.notEqual(getComputedStyle(document.querySelector('[aria-current]')).backgroundColor,'rgb(221, 229, 255)');
+  assert.equal(getComputedStyle(document.querySelector('[role="dialog"]')).getPropertyValue('--dsw-alias-brand-primary').trim(),theme.accent);
+  own.remove();
+  assert.equal(getComputedStyle(document.querySelector('[aria-current]')).backgroundColor,'rgb(221, 229, 255)','removing the theme restores host settings');
+  dom.window.close();
+ }
+});
+
+test('prose, process and composer have separate surface weights',()=>{
+ for(const theme of THEMES){
+  const dom=processStyleFixture(theme),{document,getComputedStyle}=dom.window;
+  const composer=document.createElement('div');composer.dataset.composerCard='';document.body.append(composer);
+  const values=['.xMeOpW_body','[data-step-process]','[data-composer-card]'].map(selector=>getComputedStyle(document.querySelector(selector)).backgroundColor);
+  assert.equal(new Set(values).size,3,theme.name);
+  dom.window.close();
+ }
 });

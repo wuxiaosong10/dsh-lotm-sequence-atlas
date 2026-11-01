@@ -1,4 +1,4 @@
-import { alpha, hexRgb } from './core.mjs';
+import { alpha, hexRgb, themeTokens } from './core.mjs';
 const ICON_NAMES=['cards','cube','masks-theater','script','stairs-up','eye','eye-off','moon-stars','pentagram','send','paperclip','settings','plus','x','minus','chevron-down','search','layout-sidebar'];
 const ICON_CSS=ICON_NAMES.map(name=>`[data-lotm-glyph="${name}"],[data-lotm-icon="${name}"]{--lotm-icon:url('/api/lotm-sequence-atlas/assets/icons/tabler/original/${name}.svg')}`).join('\n');
 export const SETTINGS_CSS = `
@@ -55,6 +55,29 @@ ${scope} ::selection{background:${t.accent};color:${t.onAccent}}
 ${themeFinishCss(t,assetUrl,readability)}
 ${occultFinishCss(t)}
 ${readingFinishCss(t,readability)}
+${settingsFinishCss(t)}
+`;
+}
+
+// Settings are portalled outside #root, where the host token layer may not
+// inherit. Keep these overrides scoped to the active atlas and settings modal.
+function settingsFinishCss(t){
+ const s='html[data-lotm-atlas]';
+ const modal=`${s} :is([data-shortcut-modal="settings"],[role="dialog"]:has(.lotm-atlas-settings))`;
+ const tokens=Object.entries(themeTokens(t)).map(([name,value])=>`${name}:${value.light}`).join(';');
+ const edge=alpha(t.accent,t.dark?.28:.23);
+ const selected=alpha(t.accent,t.dark?.19:.10);
+ return `
+${modal}{${tokens};--dsw-specific-sidebar-nav-item-active:${selected};--dsw-specific-sidebar-nav-item-hover:${alpha(t.accent,.08)};--dsw-alias-brand-primary-new-colorprimary-new-color:${t.accent};background:${t.panel}!important;color:${t.text}!important;border:1px solid ${edge}!important;font-family:${t.uiFont}!important}
+${modal} :is([aria-current="true"],[aria-current="page"],[role="tab"][aria-selected="true"]){background:${selected}!important;color:${t.accent}!important}
+${modal} [role="switch"][aria-checked="true"]{background:${t.accent}!important}
+${s} .lotm-atlas-settings{color:${t.text};border-color:${edge};font-family:${t.uiFont}}
+${s} .lotm-atlas-heading small{color:${t.muted}}
+${s} .lotm-atlas-tools button{background:${t.panelSoft};color:${t.text};border-color:${edge}}
+${s} .lotm-atlas-tools button[aria-pressed="true"]{background:${selected};color:${t.accent};border-color:${alpha(t.accent,.6)}}
+${s} .lotm-atlas-choice[aria-pressed="true"]{border-color:${t.accent};box-shadow:0 0 0 1px ${t.accent}}
+${s} .lotm-atlas-settings button:focus-visible{outline-color:${t.accent}!important}
+${s} .lotm-atlas-tools button:hover:not(:disabled){border-color:${t.accent}}
 `;
 }
 
@@ -66,12 +89,15 @@ function readingFinishCss(t,readability){
  };
  const secondary=blend(t.muted,t.text,.28);
  const command=blend(t.text,t.aux||t.accent,.12);
- const surface=alpha(t.panel,readability==='clear'?.80:.62);
+ const surfaceOpacity=t.dark?{clear:.92,balanced:.86}:{clear:.90,balanced:.76};
+ const surface=alpha(t.panel,surfaceOpacity[readability]||surfaceOpacity.clear);
+ const processSurface=alpha(t.panelSoft,readability==='clear'?.94:.90);
  const edge=alpha(t.ornament||t.accent,t.dark?.20:.18);
  const glint=t.dark?'rgba(255,255,255,.045)':'rgba(255,255,255,.52)';
  const process=`${s} [data-step-process][data-group-expanded-mode],${s} [data-step-process]:has(>div>.BE0jCW_title[aria-expanded="true"])`;
  return `
 ${process},${s} .xMeOpW_body{box-sizing:border-box;min-width:0;background:${surface}!important;border:1px solid ${edge}!important;border-radius:13px!important;padding:12px 16px!important;box-shadow:inset 0 1px 0 ${glint}!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:${t.text}!important}
+${process}{background:${processSurface}!important}
 ${s} [data-step-process] .xMeOpW_body{background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;backdrop-filter:none;-webkit-backdrop-filter:none}
 ${s} .xMeOpW_body > :is(p,ul,ol,table),${s} .xMeOpW_body [class*="_markdown_"] > :is(p,ul,ol,table){background:transparent!important;border-radius:0!important}
 ${s} .xMeOpW_body > p{width:auto!important;margin:0!important}
@@ -191,9 +217,9 @@ function themeFinishCss(t,assetUrl,readability) {
  const backgroundSizes=backgroundLayers.map((_,index)=>index===backgroundLayers.length-1?'var(--lotm-art-width) auto':'cover').join(',');
  return `
 ${s} body{--dsw-font-family:${t.uiFont};--lotm-code-keyword:${t.codeKeyword};--lotm-code-string:${t.codeString};--lotm-code-function:${t.codeFunction};--lotm-code-number:${t.codeNumber};--lotm-code-comment:${t.codeComment};--shiki-foreground:${t.codeText};--shiki-background:${t.codeBg};--shiki-token-constant:${t.codeNumber};--shiki-token-string:${t.codeString};--shiki-token-string-expression:${t.codeString};--shiki-token-comment:${t.codeComment};--shiki-token-keyword:${t.codeKeyword};--shiki-token-parameter:${t.codeFunction};--shiki-token-function:${t.codeFunction};--shiki-token-punctuation:${t.codeText};--shiki-token-link:${t.codeFunction};font-family:${t.uiFont}!important}
-${s} #lotm-atlas-background{--lotm-art-offset:${t.id==='8'?'calc(-1 * clamp(110px,10vw,180px))':'clamp(72px,9vw,160px)'};--lotm-art-width:max(calc(100vw + max(0px,var(--lotm-art-offset)) * 2),calc(100vh * 1.78));--lotm-art-position:calc(50% - var(--lotm-art-offset)) center;background-image:${backgroundLayers.join(',')};background-size:${backgroundSizes};background-position:${backgroundPositions}}
+${s} #lotm-atlas-background{--lotm-art-offset:${t.artOffset};--lotm-art-top:${t.artTop||'50%'};--lotm-art-width:max(calc(100vw + ${t.id==='8'||t.id==='0'?'0px':'clamp(144px,18vw,320px)'}),calc(100vh * 1.78));--lotm-art-position:calc(50% - var(--lotm-art-offset)) var(--lotm-art-top);background-image:${backgroundLayers.join(',')};background-size:${backgroundSizes};background-position:${backgroundPositions}}
 ${s} #lotm-atlas-background{overflow:hidden}
-${s} #lotm-atlas-background > video{position:absolute;z-index:0;left:calc(50% - var(--lotm-art-offset));top:50%;width:var(--lotm-art-width);height:auto;max-width:none;max-height:none;transform:translate(-50%,-50%);pointer-events:none;opacity:0}
+${s} #lotm-atlas-background > video{position:absolute;z-index:0;left:calc(50% - var(--lotm-art-offset));top:var(--lotm-art-top);width:var(--lotm-art-width);height:auto;max-width:none;max-height:none;transform:translate(-50%,${t.artTop?'0':'-50%'});pointer-events:none;opacity:0}
 ${s} #lotm-atlas-background[data-video-ready=true] > video{opacity:1}
 ${s} #lotm-atlas-background::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background-image:${backgroundLayers.slice(0,-1).join(',')};background-size:cover;background-position:center}
 ${s} #lotm-atlas-background[data-video-ready=true]::after{opacity:1}
@@ -277,8 +303,7 @@ ${s} button:disabled{opacity:.45;cursor:default}
 ${s} button:focus-visible,${s} [role="treeitem"]:focus-visible{outline:2px solid ${t.accent}!important;outline-offset:2px!important}
 ${s} ::-webkit-scrollbar{width:8px;height:8px}
 ${s} ::-webkit-scrollbar-thumb{background:${alpha(t.accent,.3)};border-radius:8px;border:2px solid transparent;background-clip:padding-box}
-@media(max-width:1100px){${s} #lotm-atlas-background{--lotm-art-offset:${t.id==='8'?'-110px':'64px'}}}
-${t.id==='0'?`${s} #lotm-atlas-background{--lotm-art-offset:0px;--lotm-art-position:center 32px}${s} #lotm-atlas-background > video{top:32px;transform:translateX(-50%)}`:''}
+@media(max-width:1100px){${s} #lotm-atlas-background{--lotm-art-offset:${({'9':'24px','8':'-110px','6':'0px','5':'-48px','4':'32px','3':'-32px','0':'0px'})[t.id]||'64px'}}}
 @media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} #lotm-atlas-background > video{inset:0;width:100%;height:100%;object-fit:cover;transform:none}${s} #lotm-atlas-background::after{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)})}${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){display:none}}
 @media(prefers-reduced-motion:reduce){${s} *,${s} *:before,${s} *:after{transition:none!important;animation:none!important}}
 `;
