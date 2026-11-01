@@ -4,4 +4,9 @@ preview/
 *.tgz
 *.log
 .cache/
+.DS_Store
+Thumbs.db
+test-results/
+playwright-report/
+coverage/
 

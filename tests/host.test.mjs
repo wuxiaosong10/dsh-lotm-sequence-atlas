@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createAssetRoutes} from '../src/host.mjs';
 
-test('all packaged active and retained images can be served as actual WebP files',()=>{
+test('all packaged active images can be served as actual WebP files',()=>{
  for(const route of createAssetRoutes().filter(r=>r.path.endsWith('.webp'))){
   const res={writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}};
   route.handler({method:'GET'},res);
@@ -15,10 +15,11 @@ test('all packaged active and retained images can be served as actual WebP files
 });
 test('only known exact asset paths are registered; no traversal handler',()=>{
  const routes=createAssetRoutes({read:()=>Buffer.from('webp')});
- assert.equal(routes.length,56);
+ assert.equal(routes.length,54);
  assert.ok(routes.every(r=>r.kind==='exact'));
  assert.equal(routes.filter(r=>r.path.includes('../')).length,0);
- assert.equal(new Set(routes.map(r=>r.path)).size,56);
+ assert.equal(new Set(routes.map(r=>r.path)).size,54);
+ assert.ok(!routes.some(r=>/\/(?:sequence|thumb)-8\.webp$/.test(r.path)));
 });
 
 const response=()=>({writeHead(status,headers){this.status=status;this.headers=headers;},end(body){this.body=body;}});

@@ -1,6 +1,6 @@
 {
   "name": "dsh-lotm-sequence-atlas",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "private": true,
   "type": "module",
   "description": "诡秘十序列：十套独立场景配色与可读内容面板",
@@ -16,8 +16,6 @@
     "assets",
     "cordis.patch.yml",
     "README.md",
-    "docs/scene-update-2026-10-30.md",
-    "docs/ui-update-2026-10-31.md",
     "THIRD-PARTY-NOTICES.md"
   ],
   "scripts": {

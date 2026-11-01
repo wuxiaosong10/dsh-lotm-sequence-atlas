@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "encoding": {
     "format": "WebP",
     "quality": 84,
@@ -412,44 +412,7 @@
       }
     }
   ],
-  "totalImageBytes": 1723654,
-  "retainedVariants": [
-    {
-      "seq": 8,
-      "name": "小丑",
-      "scene": "独自献花",
-      "colorName": "绯红酒幕",
-      "source": {
-        "path": "design/plugin-assets/sequence-8-02-绯红酒幕.png",
-        "width": 1672,
-        "height": 941,
-        "bytes": 1928407,
-        "sha256": "af9ba7319e1b0e7d42b669623bf78783cd12baaf1ea3aabd9c0e5949746cfb1c"
-      },
-      "paths": {
-        "image": "assets/sequence-8.webp",
-        "thumbnail": "assets/thumb-8.webp"
-      },
-      "image": {
-        "width": 1672,
-        "height": 941,
-        "path": "assets/sequence-8.webp",
-        "bytes": 86570,
-        "sha256": "c7e4e7f62ae119f4d65bf2f4ea7896f271dcd207852089d9c7224f995b0acb8e"
-      },
-      "thumbnail": {
-        "width": 320,
-        "height": 180,
-        "path": "assets/thumb-8.webp",
-        "bytes": 6768,
-        "sha256": "ef4cee6ebec3e2533b13d6ce78ed395d11d2ce68c42a780465625ac815432b97"
-      },
-      "method": "built-in Image color edit; Pillow WebP encoding only",
-      "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
-        "existingColorVariant": true
-      }
-    }
-  ],
-  "scene_update": "2026-10-31: Sequence 0 uses selected apotheosis scene with plain facial features; scenes 3/4/5 retain prior replacements."
+  "totalImageBytes": 1630316,
+  "scene_update": "2026-10-31: Sequence 0 uses selected apotheosis scene with plain facial features; scenes 3/4/5 retain prior replacements.",
+  "source_records_note": "十套活动素材的source.path原稿保留在design；previous、editTarget等旧制作路径仅为历史溯源，旧候选及制作中间材料已归档到项目外，不属于运行依赖。"
 }

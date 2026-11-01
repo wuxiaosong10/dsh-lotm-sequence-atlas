@@ -549,5 +549,6 @@
       2560,
       1440
     ]
-  }
+  },
+  "source_records_note": "运行只使用assets/videos/sequence-0.mp4至sequence-9.mp4。清单内output、旧design视频及previous字段为历史制作记录，中间原片与验收输出已归档到项目外。"
 }
