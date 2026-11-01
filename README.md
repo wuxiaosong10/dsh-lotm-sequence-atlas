@@ -88,8 +88,8 @@ npm pack --pack-destination "$env:TEMP"
 
 ## 素材来源与许可
 
-活动素材与SHA256见 [图片清单](assets/manifest.json)、[视频清单](assets/videos/manifest.json) 和 [装饰来源](assets/ornaments/sources.json)。必要参考来源已合并到图片清单，透明装饰原图保存在 `assets/ornaments/`。
+活动素材与SHA256见 [图片清单](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/assets/manifest.json)、[视频清单](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/assets/videos/manifest.json) 和 [装饰来源](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/assets/ornaments/sources.json)。必要参考来源已合并到图片清单，透明装饰原图保存在 `assets/ornaments/`。
 
-图标为Tabler Icons Outline，作者Paweł Kuna及贡献者。原始SVG、固定版本来源与MIT许可分别保留在 [original目录](assets/icons/tabler/original/)、[sources.json](assets/icons/tabler/sources.json) 和 [LICENSE](assets/icons/tabler/LICENSE)，另见 [第三方声明](THIRD-PARTY-NOTICES.md)。
+图标为Tabler Icons Outline，作者Paweł Kuna及贡献者。原始SVG、固定版本来源与MIT许可分别保留在 [original目录](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/tree/main/assets/icons/tabler/original/)、[sources.json](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/assets/icons/tabler/sources.json) 和 [LICENSE](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/assets/icons/tabler/LICENSE)，另见 [第三方声明](https://github.com/wuxiaosong10/dsh-lotm-sequence-atlas/blob/main/THIRD-PARTY-NOTICES.md)。
 
 背景与装饰为同人生成素材，角色与作品权利属于原权利人，不附带官方授权。
