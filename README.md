@@ -33,7 +33,7 @@
 
 本机安装位置为 `%USERPROFILE%\.dsh\profiles\desktop\node_modules\dsh-lotm-sequence-atlas`。当前安装目录通过junction指向本项目，因此 `lib/` 与 `assets/` 是实际运行文件，必须保留。修改源代码后先构建，再由DSH正常重载插件；无需重装其他主题。
 
-`output/` 仅保留最新发布包 `dsh-lotm-sequence-atlas-1.2.4.tgz` 及其SHA256校验文件。在另一台电脑安装时，按该DSH版本的本地插件安装方式导入该包，并使用包内的 `cordis.patch.yml` 注册；不要把单独一张背景图当作完整插件。
+项目不保留安装包。在另一台电脑安装时，先按下文生成包，再按该DSH版本的本地插件安装方式导入，并使用包内的 `cordis.patch.yml` 注册。
 
 ## 开发与打包
 
@@ -46,10 +46,17 @@ npm ci
 npm test
 npm run build
 npm run check
-npm pack --pack-destination output
+```
+
+需要分发安装包时，可将产物输出到项目外：
+
+```powershell
+npm pack --pack-destination "$env:TEMP"
 ```
 
 `npm test` 是正式回归测试，覆盖主题状态、可读性、资源路由、视频范围请求、原生界面和生命周期。`scripts/build.mjs` 从 `src/` 生成 `lib/`。发布包仅包含 `lib/`、`assets/`、注册配置、README及第三方许可，不包含设计稿、开发依赖或测试产物。
+
+`node_modules/` 只在本地开发和测试时由 `npm ci` 生成，当前仅含开发依赖。日常运行插件不需要此目录。
 
 ## 保留的目录
 
@@ -58,16 +65,14 @@ npm pack --pack-destination output
 | `src/` | 可维护的插件源代码 |
 | `lib/` | DSH实际加载的构建文件 |
 | `assets/` | 当前图片、视频、图标及来源、许可、哈希清单 |
-| `design/` | 十套当前背景原稿、选定视觉参考和必要的制作来源记录 |
 | `scripts/` | 构建脚本 |
 | `tests/` | 正式回归测试 |
-| `output/` | 唯一最新发布包，已被Git忽略 |
 
-历史安装包、未选候选、重复视频原片、截图、审核JSON、旧规格和一次性验证脚本已移出项目。素材清单中的previous或旧制作路径仅记录历史来源，不是运行依赖。
+项目不保留设计原稿、历史安装包、重复视频、截图、审核输出或临时脚本。素材清单中的Archived original仅记录制作来源名称，不是项目文件路径。
 
 ## 素材来源与许可
 
-活动素材与SHA256见 [图片清单](assets/manifest.json)、[视频清单](assets/videos/manifest.json) 和 [装饰来源](assets/ornaments/sources.json)。当前背景原稿保留在 `design/`，透明装饰原图直接保存在 `assets/ornaments/`。
+活动素材与SHA256见 [图片清单](assets/manifest.json)、[视频清单](assets/videos/manifest.json) 和 [装饰来源](assets/ornaments/sources.json)。必要参考来源已合并到图片清单，透明装饰原图保存在 `assets/ornaments/`。
 
 图标为Tabler Icons Outline，作者Paweł Kuna及贡献者。原始SVG、固定版本来源与MIT许可分别保留在 [original目录](assets/icons/tabler/original/)、[sources.json](assets/icons/tabler/sources.json) 和 [LICENSE](assets/icons/tabler/LICENSE)，另见 [第三方声明](THIRD-PARTY-NOTICES.md)。
 

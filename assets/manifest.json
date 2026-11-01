@@ -15,7 +15,7 @@
       "scene": "黄水晶灵摆",
       "colorName": "深青藏蓝",
       "source": {
-        "path": "design/plugin-assets/sequence-9-deep-teal-navy.png",
+        "path": "Archived original: sequence-9-deep-teal-navy.png",
         "width": 1672,
         "height": 941,
         "bytes": 1885067,
@@ -41,8 +41,8 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "editTarget": "design/scene-v2/images/09-占卜家-黄水晶灵摆.png",
-        "generatedOriginal": "C:/Users/DELL/.codex/generated_images/01a186d1-7545-7c92-aa9a-fff05a6a09c1/exec-c60ecf7e-f54f-4cf3-97e3-eda2e66a69df.png",
+        "editTarget": "Archived original: 09-占卜家-黄水晶灵摆.png",
+        "generatedOriginal": "Archived original: exec-c60ecf7e-f54f-4cf3-97e3-eda2e66a69df.png",
         "constraints": "color atmosphere only; retain single subject, composition and left negative space; no added people or props"
       },
       "interfaceColorName": "夜蓝月铜"
@@ -53,7 +53,7 @@
       "scene": "独自献花",
       "colorName": "象牙绯红",
       "source": {
-        "path": "design/palette-refinement-20261029/clown-light-background.png",
+        "path": "Archived original: clown-light-background.png",
         "bytes": 2471096,
         "sha256": "549a1046ec34a8230abaebc85dde793c754a508f129ec8eabdb42440d1e7cb52",
         "width": 1672,
@@ -79,7 +79,7 @@
       },
       "method": "built-in Image edit; WebP encoding and proportional thumbnail only",
       "provenance": {
-        "file": "design/palette-refinement-20261029/clown-light-provenance.json"
+        "file": "Archived original: clown-light-provenance.json"
       },
       "interfaceColorName": "象牙绯红"
     },
@@ -89,7 +89,7 @@
       "scene": "屋顶与大雾霾",
       "colorName": "烟雾橄榄灰/淡金",
       "source": {
-        "path": "design/plugin-assets/sequence-7-smoky-olive.png",
+        "path": "Archived original: sequence-7-smoky-olive.png",
         "width": 1672,
         "height": 941,
         "bytes": 2093775,
@@ -115,8 +115,8 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "editTarget": "design/scene-v2/images/07-魔术师-屋顶与大雾霾.png",
-        "generatedOriginal": "C:/Users/DELL/.codex/generated_images/01a186d1-7545-7c92-aa9a-fff05a6a09c1/exec-4c08bda0-1763-4020-9aa4-ec455ff8f002.png",
+        "editTarget": "Archived original: 07-魔术师-屋顶与大雾霾.png",
+        "generatedOriginal": "Archived original: exec-4c08bda0-1763-4020-9aa4-ec455ff8f002.png",
         "constraints": "color atmosphere only; retain single subject, composition and left negative space; no added people or props"
       },
       "interfaceColorName": "雾麦梅紫"
@@ -127,7 +127,7 @@
       "scene": "格尔曼提箱登船",
       "colorName": "深海靛蓝",
       "source": {
-        "path": "design/plugin-assets/sequence-6-01-深海靛蓝.png",
+        "path": "Archived original: sequence-6-01-深海靛蓝.png",
         "width": 1672,
         "height": 941,
         "bytes": 2021635,
@@ -153,7 +153,7 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
+        "paletteManifest": "Archived original: palette.json",
         "existingColorVariant": true
       },
       "interfaceColorName": "深海古铜"
@@ -164,7 +164,7 @@
       "scene": "牵丝控制",
       "colorName": "松石墨绿",
       "source": {
-        "path": "design/plugin-assets/sequence-5-04-松石墨绿.png",
+        "path": "Archived original: sequence-5-04-松石墨绿.png",
         "width": 1672,
         "height": 941,
         "bytes": 1943631,
@@ -190,7 +190,7 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
+        "paletteManifest": "Archived original: palette.json",
         "existingColorVariant": true
       },
       "interfaceColorName": "墨绿藤紫"
@@ -201,7 +201,7 @@
       "scene": "戴莉·最后一舞与幻梦渐散",
       "colorName": "暮金灰玫",
       "source": {
-        "path": "design/warm-scenes-20261030/daly-last-dance-approved.png",
+        "path": "Archived original: daly-last-dance-approved.png",
         "width": 1672,
         "height": 941,
         "bytes": 2287685,
@@ -234,7 +234,7 @@
       "superseded_source": {
         "width": 1672,
         "height": 941,
-        "path": "design/plugin-assets/sequence-4-graphite-ember.png",
+        "path": "Archived original: sequence-4-graphite-ember.png",
         "bytes": 2025804,
         "sha256": "87b382a49e8711ba4893e9b340ddeea1d538c87f8d56ccd1c7ba438833bf4050"
       }
@@ -245,7 +245,7 @@
       "scene": "特莉丝·带伤直面敌人",
       "colorName": "烟灰青/暗酒红",
       "source": {
-        "path": "design/warm-scenes-20261030/trissy-standing-approved.png",
+        "path": "Archived original: trissy-standing-approved.png",
         "width": 1672,
         "height": 941,
         "bytes": 2824195,
@@ -276,7 +276,7 @@
       },
       "interfaceColorName": "青瓷旧金",
       "superseded_source": {
-        "path": "design/plugin-assets/sequence-3-06-雾银青瓷.png",
+        "path": "Archived original: sequence-3-06-雾银青瓷.png",
         "width": 1672,
         "height": 941,
         "bytes": 2162708,
@@ -289,7 +289,7 @@
       "scene": "梅林与许愿机",
       "colorName": "琥珀铜金",
       "source": {
-        "path": "design/plugin-assets/sequence-2-05-琥珀铜金.png",
+        "path": "Archived original: sequence-2-05-琥珀铜金.png",
         "width": 1672,
         "height": 940,
         "bytes": 2089310,
@@ -315,7 +315,7 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
+        "paletteManifest": "Archived original: palette.json",
         "existingColorVariant": true
       },
       "interfaceColorName": "奶杏孔雀"
@@ -326,7 +326,7 @@
       "scene": "帷幕后乌托邦",
       "colorName": "秘幕紫晶",
       "source": {
-        "path": "design/plugin-assets/sequence-1-03-秘幕紫晶.png",
+        "path": "Archived original: sequence-1-03-秘幕紫晶.png",
         "width": 1672,
         "height": 941,
         "bytes": 2178239,
@@ -352,7 +352,7 @@
       },
       "method": "built-in Image color edit; Pillow WebP encoding only",
       "provenance": {
-        "paletteManifest": "design/color-backgrounds/palette.json",
+        "paletteManifest": "Archived original: palette.json",
         "existingColorVariant": true
       },
       "interfaceColorName": "紫幕冷翠"
@@ -363,7 +363,7 @@
       "scene": "克莱恩成神·空无斗篷与面容成形",
       "colorName": "中性深铅银灰",
       "source": {
-        "path": "design/fool-apotheosis-20261031/神诞-普通面容.png",
+        "path": "Archived original: 神诞-普通面容.png",
         "width": 1672,
         "height": 941,
         "bytes": 2039984,
@@ -394,13 +394,13 @@
         "user_requested_plain_face_and_video": true,
         "image_edit_generated_original": "exec-5299b68c-7279-4b39-b3af-fa3dfa55a3d1.png",
         "original_concept_generated_original": "exec-a59c2e2a-f909-4967-828d-e2b39ec0afd5.png",
-        "sources": "design/fool-apotheosis-20261031/design-brief.md"
+        "sources": "Archived original: design-brief.md"
       },
       "interfaceColorName": "雾银旧金",
       "superseded_source": {
         "width": 1672,
         "height": 941,
-        "path": "design/plugin-assets/sequence-0-lead-silver.png",
+        "path": "Archived original: sequence-0-lead-silver.png",
         "bytes": 2098805,
         "sha256": "f3eccbb683cce2bb349708c85e463afb488aea62d90479a8da1cdb92cbdadf7c"
       },
@@ -414,5 +414,93 @@
   ],
   "totalImageBytes": 1630316,
   "scene_update": "2026-10-31: Sequence 0 uses selected apotheosis scene with plain facial features; scenes 3/4/5 retain prior replacements.",
-  "source_records_note": "十套活动素材的source.path原稿保留在design；previous、editTarget等旧制作路径仅为历史溯源，旧候选及制作中间材料已归档到项目外，不属于运行依赖。"
+  "source_records_note": "设计原稿及制作中间记录已从项目移除。source和provenance中的Archived original仅记录原始文件名与生成来源，不是可打开的项目路径；运行素材、哈希和必要的参考来源保留在assets。",
+  "reference_sources": {
+    "record_scope": "Historical visual research and attribution; reference media are not distributed with this plugin.",
+    "records": {
+      "warm_scenes": [
+        {
+          "file": "references/trissy-character.jpg",
+          "image_url": "https://c-ssl.duitang.com/uploads/blog/202106/28/20210628213005_1f91a.jpeg",
+          "source_page": "https://www.duitang.com/blog/?id=1349397522",
+          "size": [
+            1600,
+            1200
+          ],
+          "role": "character identity and costume reference; reposted source, not a new licence"
+        },
+        {
+          "file": "references/daly-character.jpg",
+          "image_url": "https://c-ssl.duitang.com/uploads/blog/202106/14/20210614215155_dd8ee.jpg",
+          "source_page": "https://www.duitang.com/blog/?id=1346483264",
+          "size": [
+            1080,
+            6112
+          ],
+          "role": "character identity and costume reference; reposted source, not a new licence"
+        },
+        {
+          "file": "references/dunn-character.jpg",
+          "image_url": "https://static.wikia.nocookie.net/lord-of-the-mystery/images/a/a6/Dunn_Smith_Official.jpg/revision/latest?cb=20210607112115",
+          "source_page": "https://lordofthemysteries.fandom.com/wiki/Dunn_Smith",
+          "size": [
+            690,
+            1624
+          ],
+          "role": "Dunn identity reference; scene actually depicts Klein in Dunn appearance"
+        },
+        {
+          "file": "references/dunn-donghua-still.webp",
+          "image_url": "https://fwmedia.fandomwire.com/wp-content/uploads/2025/07/25021956/dunn-smith.jpg?fit=contain&format=webp&height=1080&quality=85&sharpen=true&width=1920",
+          "source_page": "https://fandomwire.com/lord-of-mysteries-dub-cast-looks-stacked-but-there-is-still-one-big-problem/",
+          "role": "Animation still, used for Dunn face/proportion reference, no new licence implied."
+        },
+        {
+          "file": "references/dunn-donghua-portrait.webp",
+          "image_url": "https://cdn.anime-planet.com/characters/primary/dunn-smith-1.webp?t=1751252565",
+          "source_page": "https://www.anime-planet.com/characters/dunn-smith",
+          "role": "Animation portrait, used for Dunn lean face and reserved expression, no new licence implied."
+        }
+      ],
+      "visual_style": [
+        {
+          "file": "cultist-simulator-official.jpg",
+          "image_url": "https://pbs.twimg.com/media/DU4VTQQW0AAlMaO.jpg",
+          "source_page": "https://twitter.com/factoryweather/status/958722202937057281",
+          "author": "Weather Factory",
+          "role": "Occult interface atmosphere and symbolic edging reference only; not licensed for redistribution."
+        }
+      ],
+      "sidebar": {
+        "theme_reference": {
+          "page": "https://video.friday.tw/anime/detail/4199",
+          "image": "https://vbmspic.video.friday.tw/GROUP/4199/4199_34666.jpg",
+          "role": "Gothic pointed lettering and celestial architecture inspiration only",
+          "copyright": "Tencent / MUSE, as printed on the source poster",
+          "runtime_use": false
+        },
+        "user_references": [
+          "sidebar-before-ornaments.png",
+          "wordmark-before.png",
+          "frame-before-top-fix.png",
+          "composer-before-height-fix.png"
+        ],
+        "lettering": "Original generated simplified Chinese wordmark, not the official logo"
+      },
+      "fool_scene": [
+        {
+          "title": "Webnovel官方英译 A Miracle",
+          "url": "https://www.webnovel.com/book/lord-of-mysteries_11022733006234505/a-miracle_47290665209484716"
+        },
+        {
+          "title": "中文章节公开转录",
+          "url": "https://www.ajshu.com/xuanhuan/guimizhizhu/178151.html"
+        },
+        {
+          "title": "另一中文转录",
+          "url": "https://book.washai.net/book/1262260513468559488/2039351400477475425.html"
+        }
+      ]
+    }
+  }
 }
