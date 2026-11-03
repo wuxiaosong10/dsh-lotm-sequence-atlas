@@ -63,3 +63,25 @@ test('decorative wordmark retains real text and falls back when its image cannot
  image.dispatchEvent(new f.dom.window.Event('error'));assert.equal(label.dataset.lotmWordmark,undefined);
  skin.setEnabled(false);image.dispatchEvent(new f.dom.window.Event('load'));assert.equal(d.querySelector('.lotm-brand-label'),null);f.stop();
 });
+test('sidebar relics follow their native controls and leave the fallback available until loaded',async()=>{
+ const f=setup(),{d,skin}=f;
+ const buttons=[...d.querySelectorAll('.host_newSession,.host_panelRow')];
+ skin.setEnabled(true);
+ const images=buttons.map(button=>button.querySelector('img'));
+ assert.ok(images.every(image=>image?.hidden && image.alt===''));
+ assert.deepEqual(images.map(image=>image.getAttribute('src').split('/').at(-1)),['cards.webp','cube.webp','masks-theater.webp','script.webp']);
+ const [tarot]=images,{Event}=f.dom.window;
+ tarot.dispatchEvent(new Event('load'));
+ assert.equal(tarot.hidden,false);
+ tarot.dispatchEvent(new Event('error'));
+ assert.equal(tarot.hidden,true);
+ skin.setEnabled(true);
+ assert.equal(buttons[0].querySelector('img'),tarot);
+ buttons[1].querySelector('span').textContent='任务看板';
+ await new Promise(resolve=>f.dom.window.setTimeout(resolve,0));
+ assert.equal(buttons[1].querySelector('img')?.getAttribute('src').split('/').at(-1),'script.webp');
+ assert.equal(images[1].isConnected,false);
+ skin.setEnabled(false);
+ assert.ok(buttons.every(button=>!button.querySelector('img')));
+ f.stop();
+});

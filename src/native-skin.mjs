@@ -38,6 +38,26 @@ export function createNativeSkin(document) {
       node.nodeValue=after;
     }
   };
+  const refreshRelic = (button, icon) => {
+    const src = icon ? `/api/lotm-sequence-atlas/assets/icons/relics/${icon}.webp` : null;
+    const current = button.querySelector(':scope > .lotm-nav-relic');
+    if (current?.getAttribute('src') === src) return;
+    if (current) {
+      current.onload = current.onerror = null;
+      current.remove();
+      owned.delete(current);
+    }
+    if (!src) return;
+    const image = document.createElement('img');
+    image.className = 'lotm-nav-relic';
+    image.alt = '';
+    image.hidden = true;
+    image.onload = () => { image.hidden = false; };
+    image.onerror = () => { image.hidden = true; };
+    button.prepend(image);
+    owned.add(image);
+    image.src = src;
+  };
   const refresh = () => {
     if (!enabled) return;
     for (const node of texts.keys()) if (!node.isConnected) texts.delete(node);
@@ -65,6 +85,7 @@ export function createNativeSkin(document) {
       if (element.matches('button')) {
         const icon=element.matches('[class*="newSession"]') ? 'cards' : icons.get(element.textContent.trim()) || icons.get(element.getAttribute('aria-label'));
         if (icon) changeAttribute(element,'data-lotm-icon',icon);
+        refreshRelic(element,icon);
       }
     }
     for (const element of document.querySelectorAll(placeholders)) {

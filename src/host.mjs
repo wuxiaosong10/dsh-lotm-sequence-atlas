@@ -11,6 +11,7 @@ export function createAssetRoutes({ read = readFileSync } = {}) {
   filenames.push('ornaments/pillar-fog-slim.png','ornaments/occult-eye.png','ornaments/occult-corner.png');
   filenames.push('ornaments/lotm-wordmark.png','ornaments/occult-frame-corner.png','ornaments/occult-divider.png');
   for (const icon of ['cards','cube','masks-theater','script','stairs-up','eye','eye-off','moon-stars','pentagram','send','paperclip','settings','plus','x','minus','chevron-down','search','layout-sidebar']) filenames.push(`icons/tabler/original/${icon}.svg`);
+  for (const icon of ['cards','cube','masks-theater','script']) filenames.push(`icons/relics/${icon}.webp`);
   for (let seq = 9; seq >= 0; seq--) filenames.push(`videos/sequence-${seq}.mp4`);
   return filenames.map((filename) => {
       const file = new URL('../assets/' + filename, import.meta.url);
