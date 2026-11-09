@@ -44,7 +44,7 @@ ${scope} .EqXNNG_body,${scope} .hKdVjq_bodyWrap,${scope} .hKdVjq_ioText,${scope}
 ${scope} pre,${scope} .md-code-block,${scope} [data-code-block-banner],${scope} ._70dcBq_screen{background:${t.codeBg}!important;background-image:none!important;opacity:1!important}
 ${scope} ._70dcBq_screen{color:${t.codeText}!important}
 ${scope} [class*="markdown"] :not(pre) > code{background:${t.panelSoft}!important;color:${t.text}!important}
-${scope} .GRgSLq_card,${scope} [data-composer-dock],${scope} div[class*="card"]:has([contenteditable="true"]),${scope} div[class*="card"]:has(textarea){background:${t.panel}!important;background-image:none!important;color:${t.text}!important;box-shadow:none!important;border-color:${t.line}!important;backdrop-filter:none!important}
+${scope} .GRgSLq_card,${scope} [data-composer-dock],${scope} div[class*="card"]:where(:not([data-composer-card],.GRgSLq_card)):has([contenteditable="true"]),${scope} div[class*="card"]:where(:not([data-composer-card],.GRgSLq_card)):has(textarea){background:${t.panel}!important;background-image:none!important;color:${t.text}!important;box-shadow:none!important;border-color:${t.line}!important;backdrop-filter:none!important}
 ${scope} .GRgSLq_input,${scope} [contenteditable="true"],${scope} textarea{color:${t.text}!important;caret-color:${t.accent}!important;background:transparent!important}
 ${scope} .GRgSLq_placeholder,${scope} input::placeholder,${scope} textarea::placeholder{color:${t.muted}!important;opacity:1!important}
 ${scope} [role="dialog"],${scope} [role="menu"],${scope} [role="listbox"],${scope} [role="tooltip"]{background:${t.panel}!important;background-image:none!important;color:${t.text}!important;border-color:${t.line}!important}
@@ -124,12 +124,12 @@ ${s} .EqXNNG_summary[data-error],${s} [data-tool][data-state="error"] [class*="s
 function occultFinishCss(t) {
  const s='html[data-lotm-atlas]',ink=t.ornament||t.accent;
  const eye="url('/api/lotm-sequence-atlas/assets/ornaments/occult-eye.png')";
- const corner="url('/api/lotm-sequence-atlas/assets/ornaments/occult-corner.png')";
  const frameCorner="url('/api/lotm-sequence-atlas/assets/ornaments/occult-frame-corner.png')";
  const divider="url('/api/lotm-sequence-atlas/assets/ornaments/occult-divider.png')";
  const wordmark="url('/api/lotm-sequence-atlas/assets/ornaments/lotm-wordmark.png')";
  const relicButton=`${s} [class*="sidebarCol"] button:has(> .lotm-nav-relic)`;
  const relicFilter=t.dark ? `brightness(1.16) drop-shadow(0 0 1px ${alpha(ink,.48)})` : 'drop-shadow(0 1px 1px rgba(46,27,17,.25))';
+ const folderSlot=`${s} [class*="sidebarCol"] [role="treeitem"][data-row-key^="workspace:"] > [class*="_folder"]`;
  return `
 ${s}{--lotm-engraving:${ink}}
 ${s} [data-lotm-original-brand]{display:none!important}
@@ -140,13 +140,19 @@ ${s} .lotm-brand-label{font:500 22px/1.3 ${t.displayFont};letter-spacing:.08em;c
 ${s} [class*="brandIdentity"]:has(.lotm-brand-label[data-lotm-wordmark="ready"]){height:40px!important;gap:6px!important;transform:none!important}
 ${s} .lotm-brand-label[data-lotm-wordmark="ready"]{display:block;flex:0 1 122px;min-width:0;width:122px;height:40px;font-size:0!important;color:transparent!important;letter-spacing:0;background:${ink};mask:${wordmark} center/contain no-repeat;-webkit-mask:${wordmark} center/contain no-repeat}
 ${s} .lotm-brand-label img{display:none!important}
-${s} .lotm-sidebar-frame{position:absolute;display:block;inset:7px 9px 7px 6px;z-index:2;pointer-events:none;border:1px solid ${alpha(ink,.28)};border-radius:2px;box-sizing:border-box}
-${s} .lotm-frame-corner{position:absolute;display:block;width:54px;height:54px;background:${ink};opacity:.72;pointer-events:none;mask:${frameCorner} center/contain no-repeat;-webkit-mask:${frameCorner} center/contain no-repeat}
-${s} .lotm-frame-corner[data-corner="tl"]{top:-5px;left:-4px}
-${s} .lotm-frame-corner[data-corner="tr"]{top:-5px;right:-4px;transform:scaleX(-1)}
-${s} .lotm-frame-corner[data-corner="bl"]{bottom:-5px;left:-4px;transform:scaleY(-1)}
-${s} .lotm-frame-corner[data-corner="br"]{bottom:-5px;right:-4px;transform:rotate(180deg)}
-${s} [class*="sidebarCol"]:has(.wtg9ga_collapsed) .lotm-sidebar-frame{display:none}
+/* The 52px corner engraving meets the side and cross rules at x=4px, y=5px. */
+${s} .lotm-sidebar-frame{position:absolute;display:block;inset:6px 3px;z-index:2;pointer-events:none;color:${ink}}
+${s} .lotm-sidebar-frame::before{content:"";position:absolute;inset:48px 4px;border-inline:1px dashed currentColor;opacity:${t.dark?.52:.43}}
+${s} .lotm-frame-corner{position:absolute;width:52px;height:52px;background:currentColor;opacity:.8;mask:${frameCorner} center/contain no-repeat}
+${s} .lotm-frame-corner[data-corner="tl"]{top:0;left:0}
+${s} .lotm-frame-corner[data-corner="tr"]{top:0;right:0;transform:scaleX(-1)}
+${s} .lotm-frame-corner[data-corner="bl"]{bottom:0;left:0;transform:scaleY(-1)}
+${s} .lotm-frame-corner[data-corner="br"]{bottom:0;right:0;transform:rotate(180deg)}
+${s} .lotm-binding-rule{position:absolute;inset-inline:49px;height:1px;background:linear-gradient(90deg,currentColor,transparent calc(50% - 5px),transparent calc(50% + 5px),currentColor);opacity:.66}
+${s} .lotm-binding-rule[data-edge="top"]{top:5px}
+${s} .lotm-binding-rule[data-edge="bottom"]{bottom:5px}
+${s} .lotm-binding-rule::after{content:"";position:absolute;top:50%;left:50%;width:4px;height:4px;box-sizing:border-box;border:1px solid currentColor;transform:translate(-50%,-50%) rotate(45deg)}
+${s} [class*="sidebarCol"]:has(.wtg9ga_collapsed) .lotm-sidebar-frame,${s} [data-sidebar-collapsed="true"] .lotm-sidebar-frame{display:none}
 ${s} [class*="sidebarCol"]::before{content:"";position:absolute;pointer-events:none;left:-66px;bottom:56px;width:300px;height:300px;background:${ink};opacity:${t.dark?.07:.06};mask:${eye} center/contain no-repeat;-webkit-mask:${eye} center/contain no-repeat}
 ${s} [class*="sidebarCol"] > div{position:relative;z-index:1;padding:8px 12px 10px!important;gap:3px!important}
 ${s} [class*="sidebarCol"] button[class*="newSession"]{height:35px!important;min-height:35px!important;padding:0 12px!important;gap:10px!important;margin:0 0 7px!important;border-radius:7px!important;border-color:${alpha(ink,.42)}!important;background:${alpha(ink,t.dark?.055:.065)}!important;color:${t.text}!important;box-shadow:inset 0 1px 0 ${alpha(ink,.05)}!important;font-family:${t.uiFont}!important;font-size:13px!important}
@@ -157,6 +163,8 @@ ${relicButton} :is(svg,[class*="panelGlyph"]){display:none!important}
 ${relicButton}::before{content:"";display:block;flex:none;width:24px;height:24px;background:${ink};mask:var(--lotm-icon) center/19px 19px no-repeat;-webkit-mask:var(--lotm-icon) center/19px 19px no-repeat;pointer-events:none}
 ${relicButton}:has(> .lotm-nav-relic:not([hidden]))::before{display:none}
 ${relicButton} > .lotm-nav-relic:not([hidden]){display:block!important;flex:none;width:24px;height:24px;object-fit:contain;pointer-events:none;filter:${relicFilter}}
+${folderSlot}:has(> .lotm-nav-relic:not([hidden])) > svg{display:none!important}
+${folderSlot} > .lotm-nav-relic:not([hidden]){display:block!important;width:19px;height:19px;flex:none;object-fit:contain;pointer-events:none;filter:${relicFilter}}
 }
 ${s} [class*="sidebarCol"] button[class*="panelRow"]{height:32px!important;min-height:32px!important;padding:4px 12px!important;gap:10px!important;font-size:13px!important;font-weight:400!important;border:1px solid transparent!important;border-radius:7px!important}
 ${s} [class*="sidebarCol"] button[class*="panelRow"][aria-current="page"]{background:${alpha(ink,.10)}!important;border-color:${alpha(ink,.22)}!important;color:${t.text}!important}
@@ -188,9 +196,13 @@ ${s} .WOwLGG_previewBadge,${s} .WOwLGG_body:empty{display:none!important}
 ${s} .WOwLGG_fishHitbox{pointer-events:none;display:block!important;width:56px!important;height:46px!important;background:${ink};mask:${eye} center/contain no-repeat;-webkit-mask:${eye} center/contain no-repeat}
 ${s} .WOwLGG_fishHitbox > *{visibility:hidden!important}
 ${s} .GRgSLq_card,${s} [data-composer-card]{position:relative;border-radius:13px!important;border-color:${alpha(ink,.55)}!important;background:${alpha(t.panel,t.dark?.86:.94)}!important;box-shadow:inset 0 1px 0 ${alpha(ink,.08)},0 6px 24px ${alpha(t.bg,.1)}!important}
-${s} [data-composer-card]::before,${s} [data-composer-card]::after{content:"";position:absolute;width:32px;height:32px;background:${ink};opacity:.75;pointer-events:none;mask:${corner} -12px -12px/96px 96px no-repeat;-webkit-mask:${corner} -12px -12px/96px 96px no-repeat}
-${s} [data-composer-card]::before{top:0;left:0}
-${s} [data-composer-card]::after{bottom:0;right:0;transform:rotate(180deg)}
+/* A single brass fitting leaves the writing area and toolbar clear. */
+${s} [data-composer-card]::after{content:"";position:absolute;right:1px;bottom:1px;width:17px;height:17px;pointer-events:none;border-bottom-right-radius:10px;clip-path:polygon(100% 0,100% 100%,0 100%);background:linear-gradient(135deg,transparent 47%,#826444 48%,#ebd3a2 53%,#ad865a 59%,#dac095 74%,#896a48 97%)}
+${t.id==='8'?`
+${s} [data-composer-card]{background:linear-gradient(155deg,#fffaf280,transparent 66%),#fbf5ea!important;border-color:#b9a181!important;box-shadow:inset 0 1px 0 #fffcf5,0 3px 9px #684b3321!important}
+${s} [data-composer-card] button.GRgSLq_primary[aria-busy]{background:linear-gradient(145deg,#984e5e,#743346 72%)!important;color:#fff!important;box-shadow:inset 0 0 0 1px #5c293a,inset 0 0 0 3px #b7757e,0 1px 2px #50243440!important}
+${s} [data-composer-card] button.GRgSLq_primary[aria-busy]:enabled:hover{filter:brightness(1.10)}
+${s} [data-composer-card] button.GRgSLq_primary[aria-busy]:enabled:active{filter:brightness(.94)}`:''}
 ${s} .GRgSLq_card:focus-within,${s} [data-composer-card]:focus-within{border-color:${ink}!important;box-shadow:0 0 0 2px ${alpha(ink,.09)}!important}
 ${s} .GRgSLq_placeholder{font-size:15px!important;color:${t.muted}!important}
 @media(max-width:1100px){${s} [data-conversation-region="chat"]{--lotm-content-width:700px}${s} .lotm-brand-label{font-size:22px}${s} .WOwLGG_headline{margin-bottom:24px!important}}
@@ -232,10 +244,6 @@ ${s} #lotm-atlas-background[data-video-ready=true]::after{opacity:1}
 ${s} [class*="sidebarCol"]{position:relative;background:${alpha(t.chromeBg,.94)}!important;border-right:0!important;box-shadow:inset 0 1px 0 ${highlight}!important}
 ${s} [class*="rightbarCol"]{border-left:0!important}
 ${s} [class*="sidebarCol"] > div{background:transparent!important;background-image:none!important;padding:5px 8px 8px!important;gap:5px!important;font-size:12px!important}
-${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){position:fixed;z-index:2;pointer-events:none;top:12px;bottom:8px;width:24px;background:url('/api/lotm-sequence-atlas/assets/ornaments/pillar-fog-slim.png') center/640% 100% no-repeat;opacity:${t.dark?.48:.34};filter:drop-shadow(0 1px 3px ${shadow})}
-${s} #lotm-atlas-pillar{left:calc(var(--lotm-sidebar-edge,280px) - 12px)}
-${s} #lotm-atlas-pillar-right{left:calc(var(--lotm-center-edge,100vw) - 28px)}
-${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right)[hidden]{display:none}
 ${s} [class*="sidebarCol"] [class*="logoRow"]{height:44px!important;box-sizing:border-box;padding:6px 8px!important;margin-bottom:2px!important;gap:8px!important}
 ${s} [class*="sidebarCol"] [class*="brandName"]{font-family:${t.displayFont}!important;font-size:16px!important;font-weight:700!important;letter-spacing:.02em!important;color:${t.text}!important}
 ${s} [class*="sidebarCol"] [class*="buildVersion"]{font-size:8px!important;height:12px!important;line-height:12px!important;padding:0 4px!important;border-radius:4px!important}
@@ -310,7 +318,7 @@ ${s} button:focus-visible,${s} [role="treeitem"]:focus-visible{outline:2px solid
 ${s} ::-webkit-scrollbar{width:8px;height:8px}
 ${s} ::-webkit-scrollbar-thumb{background:${alpha(t.accent,.3)};border-radius:8px;border:2px solid transparent;background-clip:padding-box}
 @media(max-width:1100px){${s} #lotm-atlas-background{--lotm-art-offset:${({'9':'24px','8':'-110px','6':'0px','5':'-48px','4':'32px','3':'-32px','0':'0px'})[t.id]||'64px'}}}
-@media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} #lotm-atlas-background > video{inset:0;width:100%;height:100%;object-fit:cover;transform:none}${s} #lotm-atlas-background::after{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)})}${s} :is(#lotm-atlas-pillar,#lotm-atlas-pillar-right){display:none}}
+@media(max-width:820px){${s} [data-conversation-scroll]{padding-left:20px!important;padding-right:20px!important}${s} #lotm-atlas-background{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)}),url(${JSON.stringify(assetUrl)});background-position:center,center;background-size:cover,cover}${s} #lotm-atlas-background > video{inset:0;width:100%;height:100%;object-fit:cover;transform:none}${s} #lotm-atlas-background::after{background-image:linear-gradient(${alpha(t.bg,.87)},${alpha(t.bg,.87)})}}
 @media(prefers-reduced-motion:reduce){${s} *,${s} *:before,${s} *:after{transition:none!important;animation:none!important}}
 `;
 }

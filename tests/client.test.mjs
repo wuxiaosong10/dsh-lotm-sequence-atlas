@@ -187,46 +187,24 @@ test('legacy Gradually stylesheet is reversibly suspended, including a late repl
  f.stop();
 });
 
-test('only the column chrome mounts once and retracts on close and unload',async()=>{
- const f=fixture();f.click('序列 8 小丑');
- const crest=f.w.document.getElementById('lotm-atlas-crest');
- assert.equal(crest,null);
- assert.ok(f.w.document.getElementById('lotm-atlas-pillar'));
- assert.ok(f.w.document.getElementById('lotm-atlas-pillar-right'));
- f.click('序列 0 愚者');await Promise.resolve();
- assert.equal(f.w.document.querySelectorAll('#lotm-atlas-crest').length,0);
- f.click('关闭诡秘风格');
- assert.equal(f.w.document.getElementById('lotm-atlas-crest'),null);
- assert.equal(f.w.document.getElementById('lotm-atlas-pillar'),null);
- assert.equal(f.w.document.getElementById('lotm-atlas-pillar-right'),null);
- assert.equal(f.w.document.documentElement.style.getPropertyValue('--lotm-sidebar-edge'),'');
- assert.equal(f.w.document.documentElement.style.getPropertyValue('--lotm-center-edge'),'');
- f.click('序列 3 古代学者');
- const doc=f.w.document;f.stop();
- assert.equal(doc.querySelector('[id^="lotm-atlas-"]'),null);
-});
-test('paired columns follow center-pane resizing and retract when that pane disappears',async()=>{
- const observed=new Map();
- class RO{constructor(fn){this.fn=fn;}observe(node){observed.set(node,this.fn);}disconnect(){for(const [node,fn]of observed)if(fn===this.fn)observed.delete(node);}}
- const f=fixture(undefined,undefined,{ResizeObserver:RO}),d=f.w.document;
- const sidebar=d.querySelector('[class*="sidebarCol"]'),center=d.createElement('main');center.className='mP3x-q_centerCol';
- let sidebarWidth=280,centerRight=1400;
- sidebar.getBoundingClientRect=()=>({right:sidebarWidth,width:sidebarWidth});
- center.getBoundingClientRect=()=>({left:sidebarWidth,right:centerRight,width:centerRight-sidebarWidth});
- d.getElementById('root').append(center);
+test('the bookbinding stays inside the mounted sidebar across switches and replacements',async()=>{
+ const f=fixture(), d=f.w.document;
  f.click('序列 8 小丑');
- assert.equal(d.documentElement.style.getPropertyValue('--lotm-center-edge'),'1400px');
- assert.equal(d.getElementById('lotm-atlas-pillar-right').hidden,false);
- assert.ok(observed.has(center));
- centerRight=1040;observed.get(center)();
- assert.equal(d.documentElement.style.getPropertyValue('--lotm-center-edge'),'1040px');
- sidebarWidth=54;observed.get(sidebar)();
- assert.equal(d.getElementById('lotm-atlas-pillar').hidden,true);
- assert.equal(d.getElementById('lotm-atlas-pillar-right').hidden,false);
- center.remove();await nextFrame(f);
- assert.equal(d.getElementById('lotm-atlas-pillar-right').hidden,true);
- assert.equal(d.documentElement.style.getPropertyValue('--lotm-center-edge'),'');
- f.stop();assert.equal(observed.size,0);
+ const column=d.querySelector('[class*="sidebarCol"]');
+ const frame=column.querySelector(':scope > .lotm-sidebar-frame');
+ assert.ok(frame);
+ assert.equal(d.querySelector('#lotm-atlas-pillar,#lotm-atlas-pillar-right'),null);
+ f.click('序列 0 愚者');
+ assert.equal(column.querySelector('.lotm-sidebar-frame'),frame);
+ const replacement=column.cloneNode(false);
+ column.replaceWith(replacement);
+ await nextFrame(f);
+ assert.equal(replacement.querySelectorAll(':scope > .lotm-sidebar-frame').length,1);
+ f.click('关闭诡秘风格');
+ assert.equal(d.querySelector('.lotm-sidebar-frame'),null);
+ f.click('序列 3 古代学者');
+ f.stop();
+ assert.equal(d.querySelector('.lotm-sidebar-frame,[id^="lotm-atlas-"]'),null);
 });
 test('streaming tool output does not repeatedly force sidebar layout measurements',async()=>{
  const f=fixture();let measures=0;

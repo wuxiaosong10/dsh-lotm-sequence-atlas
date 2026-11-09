@@ -15,7 +15,8 @@ test('all packaged active images can be served as actual WebP files',()=>{
 });
 test('only known exact asset paths are registered; no traversal handler',()=>{
  const routes=createAssetRoutes({read:()=>Buffer.from('webp')});
- assert.equal(routes.length,58);
+ assert.equal(routes.length,59);
+ assert.ok(routes.some(r=>r.path.endsWith('/icons/relics/potion.webp')));
  assert.ok(routes.every(r=>r.kind==='exact'));
  assert.equal(routes.filter(r=>r.path.includes('../')).length,0);
  assert.equal(new Set(routes.map(r=>r.path)).size,routes.length);

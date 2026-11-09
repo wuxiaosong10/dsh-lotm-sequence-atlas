@@ -117,3 +117,18 @@ test('prose, process and composer have separate surface weights',()=>{
   dom.window.close();
  }
 });
+
+test('Clown paper and wax finish apply to the editable card and send action',()=>{
+ const dom=new JSDOM('<html data-lotm-atlas="8"><head></head><body><div class="GRgSLq_card" data-composer-card><div contenteditable="true"></div><button class="GRgSLq_primary" aria-busy="false"></button></div></body></html>');
+ const {document,getComputedStyle}=dom.window;
+ const style=document.createElement('style');
+ style.textContent=themeCss(THEMES.find(t=>t.id==='8'),'/scene.webp');
+ document.head.append(style);
+ const card=document.querySelector('[data-composer-card]'),send=card.querySelector('button');
+ assert.equal(getComputedStyle(card).backgroundColor,'rgb(251, 245, 234)');
+ assert.ok(getComputedStyle(send).backgroundImage.includes('gradient'));
+ assert.equal(getComputedStyle(send).color,'rgb(255, 255, 255)');
+ send.disabled=true;
+ assert.ok(Number(getComputedStyle(send).opacity)<1);
+ dom.window.close();
+});

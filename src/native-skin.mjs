@@ -38,9 +38,9 @@ export function createNativeSkin(document) {
       node.nodeValue=after;
     }
   };
-  const refreshRelic = (button, icon) => {
+  const refreshRelic = (container, icon) => {
     const src = icon ? `/api/lotm-sequence-atlas/assets/icons/relics/${icon}.webp` : null;
-    const current = button.querySelector(':scope > .lotm-nav-relic');
+    const current = container.querySelector(':scope > .lotm-nav-relic');
     if (current?.getAttribute('src') === src) return;
     if (current) {
       current.onload = current.onerror = null;
@@ -54,7 +54,7 @@ export function createNativeSkin(document) {
     image.hidden = true;
     image.onload = () => { image.hidden = false; };
     image.onerror = () => { image.hidden = true; };
-    button.prepend(image);
+    container.prepend(image);
     owned.add(image);
     image.src = src;
   };
@@ -70,6 +70,10 @@ export function createNativeSkin(document) {
         for (const corner of ['tl','tr','bl','br']) {
           const ornament=document.createElement('span');
           ornament.className='lotm-frame-corner';ornament.dataset.corner=corner;frame.append(ornament);
+        }
+        for (const edge of ['top','bottom']) {
+          const rule=document.createElement('span');
+          rule.className='lotm-binding-rule';rule.dataset.edge=edge;frame.append(rule);
         }
         column.append(frame);owned.add(frame);
       }
@@ -87,6 +91,9 @@ export function createNativeSkin(document) {
         if (icon) changeAttribute(element,'data-lotm-icon',icon);
         refreshRelic(element,icon);
       }
+    }
+    for (const slot of document.querySelectorAll(`${sidebar} [role="treeitem"][data-row-key^="workspace:"] > [class*="_folder"]`)) {
+      refreshRelic(slot,'potion');
     }
     for (const element of document.querySelectorAll(placeholders)) {
       // Lexical's ghost placeholder is outside the editable document.

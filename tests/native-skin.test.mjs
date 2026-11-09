@@ -48,11 +48,12 @@ test('collapsed sidebar keeps its native toggle and does not gain a full brand l
  skin.dispose();dom.window.close();
 });
 
-test('four-corner sidebar frame mounts once and is fully removed on close',()=>{
+test('decorative bookbinding mounts once and is fully removed on close',()=>{
  const f=setup(),{d,skin}=f;skin.setEnabled(true);skin.setEnabled(true);
  const frames=d.querySelectorAll('.lotm-sidebar-frame');assert.equal(frames.length,1);
  assert.equal(frames[0].getAttribute('aria-hidden'),'true');
- assert.deepEqual([...frames[0].children].map(n=>n.dataset.corner),['tl','tr','bl','br']);
+ assert.deepEqual([...frames[0].querySelectorAll('.lotm-frame-corner')].map(n=>n.dataset.corner),['tl','tr','bl','br']);
+ assert.deepEqual([...frames[0].querySelectorAll('.lotm-binding-rule')].map(n=>n.dataset.edge),['top','bottom']);
  skin.setEnabled(false);assert.equal(d.querySelector('.lotm-sidebar-frame'),null);f.stop();
 });
 
@@ -62,6 +63,20 @@ test('decorative wordmark retains real text and falls back when its image cannot
  image.dispatchEvent(new f.dom.window.Event('load'));assert.equal(label.dataset.lotmWordmark,'ready');
  image.dispatchEvent(new f.dom.window.Event('error'));assert.equal(label.dataset.lotmWordmark,undefined);
  skin.setEnabled(false);image.dispatchEvent(new f.dom.window.Event('load'));assert.equal(d.querySelector('.lotm-brand-label'),null);f.stop();
+});
+
+test('workspace potion is confined to the folder slot and restores the native folder on failure or disable',async()=>{
+ const f=setup(),{d,skin}=f;skin.setEnabled(true);
+ const row=d.createElement('div');row.setAttribute('role','treeitem');row.dataset.rowKey='workspace:test';
+ row.innerHTML='<span class="wnFoaW_slot wnFoaW_folder"><svg></svg></span><span class="wnFoaW_chevron"><svg></svg></span><span>我的项目</span><button>更多</button>';
+ d.querySelector('aside').append(row);
+ await new Promise(resolve=>f.dom.window.setTimeout(resolve,0));
+ const folder=row.firstElementChild,native=folder.querySelector('svg'),image=folder.querySelector('img');
+ assert.ok(image);assert.equal(image.getAttribute('src'),'/api/lotm-sequence-atlas/assets/icons/relics/potion.webp');
+ assert.equal(image.hidden,true);image.onload();assert.equal(image.hidden,false);image.onerror();assert.equal(image.hidden,true);
+ skin.setEnabled(true);assert.equal(row.querySelectorAll('img').length,1);
+ assert.equal(row.textContent,'我的项目更多');
+ skin.setEnabled(false);assert.equal(row.querySelector('img'),null);assert.equal(folder.firstElementChild,native);f.stop();
 });
 test('sidebar relics follow their native controls and leave the fallback available until loaded',async()=>{
  const f=setup(),{d,skin}=f;

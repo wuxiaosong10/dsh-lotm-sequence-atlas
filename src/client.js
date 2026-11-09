@@ -36,7 +36,6 @@ window.__ModuleLoader__.load({
       let activeVideo, desiredVideo = '';
       const disposers = [];
       const pausedSkins = new Map();
-      let measuredSidebar, measuredCenter, sidebarResize, chromeFrame;
       let measuredDock, measuredHeader, measuredTabs, measuredTabControls, statsObserver, statsResize, statsFrame;
       const statsLabels = new Set();
       const statsStructureSelector = '[data-composer-dock],header[class*="header"]';
@@ -114,55 +113,6 @@ window.__ModuleLoader__.load({
         document.documentElement.style.setProperty('--lotm-stats-top',Math.round(top)+'px');
         dock.dataset.lotmDock = 'header';
       }
-      function scheduleLayout() { scheduleChrome(); scheduleStats(); }
-      function scheduleChrome() {
-        if (chromeFrame !== undefined || destroyed || store.state().sequence === 'native') return;
-        chromeFrame = requestFrame(() => { chromeFrame = undefined; syncChrome(); });
-      }
-      function removeChrome() {
-        if (chromeFrame !== undefined) { cancelFrame(chromeFrame); chromeFrame = undefined; }
-        sidebarResize?.disconnect(); sidebarResize = undefined; measuredSidebar = measuredCenter = undefined;
-        // Also retract the ornament from the earlier preview when hot-updating.
-        document.getElementById('lotm-atlas-crest')?.remove();
-        document.getElementById('lotm-atlas-pillar')?.remove();
-        document.getElementById('lotm-atlas-pillar-right')?.remove();
-        document.documentElement.style.removeProperty('--lotm-sidebar-edge');
-        document.documentElement.style.removeProperty('--lotm-center-edge');
-      }
-      function syncChrome() {
-        if (destroyed || store.state().sequence === 'native') return;
-        const sidebar = document.querySelector('[class*="sidebarCol"]');
-        const center = document.querySelector('[class*="centerCol"]');
-        if (!sidebar && !center) { removeChrome(); return; }
-        document.getElementById('lotm-atlas-crest')?.remove();
-        const columns = ['lotm-atlas-pillar','lotm-atlas-pillar-right'].map(id => {
-          let column = document.getElementById(id);
-          if (!column) {
-            column = document.createElement('div'); column.id = id;
-            column.setAttribute('aria-hidden','true'); document.body.appendChild(column);
-          }
-          return column;
-        });
-        const measure = () => {
-          if (destroyed || store.state().sequence === 'native' || !columns[0].isConnected) return;
-          const rootStyle = document.documentElement.style;
-          for (const [index,node,key] of [[0,sidebar,'--lotm-sidebar-edge'],[1,center,'--lotm-center-edge']]) {
-            const rect = node?.isConnected ? node.getBoundingClientRect() : undefined;
-            columns[index].hidden = !rect || rect.width < 80;
-            if (columns[index].hidden) rootStyle.removeProperty(key);
-            else if (rootStyle.getPropertyValue(key) !== rect.right+'px') rootStyle.setProperty(key,rect.right+'px');
-          }
-          scheduleStats();
-        };
-        measure();
-        if (measuredSidebar !== sidebar || measuredCenter !== center) {
-          sidebarResize?.disconnect(); measuredSidebar = sidebar; measuredCenter = center;
-          if (typeof ResizeObserver !== 'undefined') {
-            sidebarResize = new ResizeObserver(measure);
-            for (const node of [sidebar,center]) if (node) sidebarResize.observe(node);
-          }
-        }
-      }
       const legacySkinSelector = 'style[data-plugin-css="dsh-gradually-themes/skin.css"]';
       function pauseLegacySkins() {
         for (const node of document.querySelectorAll(legacySkinSelector)) {
@@ -239,7 +189,6 @@ window.__ModuleLoader__.load({
         applying = true;
         try {
           restoreLegacySkins();
-          removeChrome();
           removeStats();
           nativeSkin.setEnabled(false);
           releaseTokens?.(); releaseTokens = undefined;
@@ -292,7 +241,6 @@ window.__ModuleLoader__.load({
           const scheme = theme.dark ? 'dark' : 'light';
           if (ctx.theme.getTheme().active.colorScheme !== scheme) ctx.theme.setTheme(scheme);
           active = true;
-          syncChrome();
           syncStats();
         } finally { applying = false; }
       }
@@ -341,12 +289,6 @@ window.__ModuleLoader__.load({
         skinObserver.observe(document.head,{childList:true,subtree:true});
         const chromeObserver = new MutationObserver(records => {
           if (!active || destroyed) return;
-          // Transcript streaming is deliberately outside this observer's work.
-          // Inspect only sidebar replacement/collapse and batch chrome changes.
-          const relevant = records.some(record => record.type === 'attributes'
-            || record.target.closest?.('[class*="sidebarCol"]')
-            || [...record.addedNodes,...record.removedNodes].some(node => node.nodeType === 1 && (node.matches('[class*="sidebarCol"],[class*="centerCol"]') || node.querySelector('[class*="sidebarCol"],[class*="centerCol"]'))));
-          if (relevant) scheduleChrome();
           const statsChanged = records.some(record => record.type === 'attributes'
             || record.target === measuredHeader || record.target === measuredTabs
             || [...record.addedNodes,...record.removedNodes].some(node => node.nodeType === 1 && (node.matches(statsStructureSelector) || node.querySelector(statsStructureSelector)
@@ -355,14 +297,14 @@ window.__ModuleLoader__.load({
           if (statsChanged) scheduleStats();
         });
         chromeObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-sidebar-collapsed']});
-        window.addEventListener('resize',scheduleLayout);
+        window.addEventListener('resize',scheduleStats);
         document.addEventListener('visibilitychange',visibilityChanged);
         renderTheme(store.state());
         return () => {
           destroyed = true;
           skinObserver.disconnect();
           chromeObserver.disconnect();
-          window.removeEventListener('resize',scheduleLayout);
+          window.removeEventListener('resize',scheduleStats);
           document.removeEventListener('visibilitychange',visibilityChanged);
           document.removeEventListener('click',externalPaletteClick,true);
           for(const dispose of disposers.reverse()) dispose?.();
